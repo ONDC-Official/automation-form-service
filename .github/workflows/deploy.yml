@@ -1,0 +1,90 @@
+name: Deploy form service
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  deploy-draft:
+    if: startsWith(github.ref_name, 'release') == false
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+      url: https://github.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH Setup and Cloning Repository
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./key.pem
+          chmod 600 ./key.pem
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+
+
+          ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} -T <<EOF
+          REPO_DIR=~/ONDC-automation-framework/form_service_dev
+          echo "Removing existing repository directory if exists"
+          rm -rf \$REPO_DIR
+          echo "Cloning repository from main branch"
+          git clone --single-branch --branch main https://github.com/mofahsan/form_service.git \$REPO_DIR
+          EOF
+
+      - name: Install Docker Compose (if not installed)
+        run: |
+          ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
+          # Check if Docker Compose is installed
+          if ! command -v docker-compose &> /dev/null
+          then
+            echo "Docker Compose not found. Installing..."
+            sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+          else
+            echo "Docker Compose is already installed."
+          fi
+          EOF
+
+      - name: Write secrets to .env on EC2
+        run: |
+          echo "Writing secrets to .env file"
+          ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
+          REPO_DIR=~/ONDC-automation-framework/form_service_dev
+          echo "Writing environment variables to .env file"
+          echo "PORT=${{ vars.PORT }}" >> \$REPO_DIR/.env
+          echo "BASE_URL=${{ vars.BASE_URL }}" >> \$REPO_DIR/.env
+          echo "REDIS_USERNAME=${{ vars.REDIS_USERNAME }}" >> \$REPO_DIR/.env
+          echo "REDIS_HOST=${{ vars.REDIS_HOST }}" >> \$REPO_DIR/.env
+          echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> \$REPO_DIR/.env
+          echo "REDIS_PORT=${{ vars.REDIS_PORT }}" >> \$REPO_DIR/.env
+          echo "MOCK_SERVICE_URL=${{ vars.MOCK_SERVICE_URL }}" >> \$REPO_DIR/.env
+          echo "BACKEND_URL=${{ vars.BACKEND_URL }}" >> \$REPO_DIR/.env
+          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> \$REPO_DIR/.env
+          echo "LOKI_HOST=${{ vars.LOKI_HOST }}" >> \$REPO_DIR/.env
+
+          
+          EOF
+
+
+      - name: Automation Api Server Deployment
+        run: |
+          echo "Deploying with Docker Compose"
+          ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
+          REPO_DIR=~/ONDC-automation-framework/form_service_dev
+          cd \$REPO_DIR
+
+          # Ensure the .env and docker-compose.yml files exist
+          if [ ! -f .env ]; then
+            echo ".env file not found!"
+            exit 1
+          fi
+
+          if [ ! -f docker-compose.yml ]; then
+            echo "docker-compose.yml file not found!"
+            exit 1
+          fi
+
+          
+          sudo docker compose up -d --build
+          EOF

@@ -1,0 +1,31 @@
+{
+  "name": "form-service",
+  "version": "1.0.0",
+  "description": "Form service for handling static and dynamic forms",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && copyfiles -u 1 \"src/**/*.{yaml,html,css}\" dist/",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev src/index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@ondc/automation-logger": "^1.1.0",
+    "axios": "^1.11.0",
+    "copyfiles": "^2.4.1",
+    "ejs": "^3.1.10",
+    "express": "^4.18.2",
+    "js-yaml": "^4.1.0",
+    "ondc-automation-cache-lib": "^2.1.0",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^4.17.21",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "prettier": "3.6.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .success-message {
+            color: green;
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>{{formTitle}}</h1>
+        
+        {{#if successMessage}}
+        <div class="success-message">
+            {{successMessage}}
+        </div>
+        {{/if}}
+        
+        <form method="POST" action="/submit-form">
+            <div class="form-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" 
+                       value="{{formData.firstName}}" 
+                       {{#if errors.firstName}}class="error"{{/if}}>
+                {{#if errors.firstName}}
+                <div class="error">{{errors.firstName}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="lastName" name="lastName"
+                       value="{{formData.lastName}}"
+                       {{#if errors.lastName}}class="error"{{/if}}>
+                {{#if errors.lastName}}
+                <div class="error">{{errors.lastName}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email"
+                       value="{{formData.email}}"
+                       {{#if errors.email}}class="error"{{/if}}>
+                {{#if errors.email}}
+                <div class="error">{{errors.email}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone"
+                       value="{{formData.phone}}"
+                       {{#if errors.phone}}class="error"{{/if}}>
+                {{#if errors.phone}}
+                <div class="error">{{errors.phone}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject <span class="required">*</span></label>
+                <select id="subject" name="subject" {{#if errors.subject}}class="error"{{/if}}>
+                    <option value="">Select a subject</option>
+                    <option value="general" {{#if formData.subject}}{{#eq formData.subject "general"}}selected{{/eq}}{{/if}}>General Inquiry</option>
+                    <option value="support" {{#if formData.subject}}{{#eq formData.subject "support"}}selected{{/eq}}{{/if}}>Technical Support</option>
+                    <option value="billing" {{#if formData.subject}}{{#eq formData.subject "billing"}}selected{{/eq}}{{/if}}>Billing Question</option>
+                    <option value="feedback" {{#if formData.subject}}{{#eq formData.subject "feedback"}}selected{{/eq}}{{/if}}>Feedback</option>
+                </select>
+                {{#if errors.subject}}
+                <div class="error">{{errors.subject}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" 
+                          placeholder="Please enter your message here..."
+                          {{#if errors.message}}class="error"{{/if}}>{{formData.message}}</textarea>
+                {{#if errors.message}}
+                <div class="error">{{errors.message}}</div>
+                {{/if}}
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="newsletter" value="yes" 
+                           {{#if formData.newsletter}}{{#eq formData.newsletter "yes"}}checked{{/eq}}{{/if}}>
+                    Subscribe to our newsletter
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Form</button>
+        </form>
+    </div>
+</body>
+</html>

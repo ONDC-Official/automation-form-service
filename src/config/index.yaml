@@ -1,0 +1,43 @@
+domains:
+  - name: 'TRV14'
+    version: '2.0.0'
+    forms:
+      - name: "static-form"
+        url: "static-sample-form"
+        path: "TRV14/static-sample-form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "dynamic-form"
+        url: "dynamic-sample-form"
+        path: "TRV14/dynamic-sample-form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "additional details"
+        url: "additional-details-form"
+        path: "TRV14/dynamic-sample-form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "test-form"
+        url: "test-sample-form"
+        path: "TRV14/test-sample-form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+  - name: 'FIS12'
+    version: '2.0.2'
+    forms:
+      - name: "consumer_information_form"
+        url: "consumer_information_form"
+        path: "FIS12/consumer_information_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "loan_adjustment_form"
+        url: "loan_adjustment_form"
+        path: "FIS12/loan_adjustment_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
