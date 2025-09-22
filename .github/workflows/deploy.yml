@@ -29,7 +29,7 @@ jobs:
           echo "Removing existing repository directory if exists"
           rm -rf \$REPO_DIR
           echo "Cloning repository from release-staging branch"
-          git clone --single-branch --branch release-staging https://github.com/mofahsan/form_service.git \$REPO_DIR
+          git clone --single-branch --branch release-staging https://github.com/ONDC-Official/automation-form-service.git \$REPO_DIR
           EOF
 
       - name: Install Docker Compose (if not installed)
