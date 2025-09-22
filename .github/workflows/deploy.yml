@@ -28,8 +28,8 @@ jobs:
           REPO_DIR=~/ONDC-automation-framework/form_service_staging
           echo "Removing existing repository directory if exists"
           rm -rf \$REPO_DIR
-          echo "Cloning repository from main branch"
-          git clone --single-branch --branch main https://github.com/mofahsan/form_service.git \$REPO_DIR
+          echo "Cloning repository from release-staging branch"
+          git clone --single-branch --branch release-staging https://github.com/mofahsan/form_service.git \$REPO_DIR
           EOF
 
       - name: Install Docker Compose (if not installed)
