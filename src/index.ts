@@ -1,8 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import { formRoutes } from './routes/form-routes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Enable CORS for all origins
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
