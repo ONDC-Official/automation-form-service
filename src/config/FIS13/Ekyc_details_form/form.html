@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eKYC Details</title>
+</head>
+
+<body>
+  <form id="Ekyc_details_form" method="POST" action="<%= actionUrl %>">
+    <!-- <h2>eKYC Details</h2> -->
+
+    <label for="userType">User Type</label>
+    <select name="userType" id="userType" required>
+      <option value="">Select</option>
+      <option value="individual">Individual</option>
+      <option value="non-individual">Non-Individual</option>
+    </select>
+
+    <label for="pan">PAN Number</label>
+    <input
+      type="text"
+      id="pan"
+      name="pan"
+      placeholder="ABCDE1234F"
+      pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+      maxlength="10"
+      title="PAN must be in format: ABCDE1234F (5 letters, 4 digits, 1 letter)"
+      required
+    />
+
+    <label for="aadhaar">Aadhaar Number</label>
+    <input
+      type="text"
+      id="aadhaar"
+      name="aadhaar"
+      placeholder="123456789012"
+      pattern="[2-9]{1}[0-9]{11}"
+      maxlength="12"
+      title="Aadhaar number must be 12 digits and not start with 0 or 1"
+      required
+    />
+
+    <label for="fullName">Full Name (as per KYC)</label>
+    <input
+      type="text"
+      id="fullName"
+      name="fullName"
+      placeholder="Enter full name"
+      pattern="[A-Za-z\\s]{2,50}"
+      maxlength="50"
+      title="Name must contain only letters and spaces (2–50 characters)"
+      required
+    />
+
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" name="dob" required />
+
+    <label for="address">Address</label>
+    <textarea
+      id="address"
+      name="address"
+      rows="3"
+      placeholder="Enter your address"
+      required
+    ></textarea>
+
+    <label for="pincode">Pincode</label>
+    <input
+      type="text"
+      id="pincode"
+      name="pincode"
+      placeholder="123456"
+      pattern="[1-9][0-9]{5}"
+      maxlength="6"
+      title="Pincode must be 6 digits and cannot start with 0"
+      required
+    />
+
+    <label for="bureauConsent">
+      <input type="checkbox" id="bureauConsent" name="bureauConsent" required />
+      I authorize verification of my details through KYC sources.
+    </label>
+
+    <input type="hidden" id="formId" name="formId" value="EKYC01" />
+
+    <input type="submit" value="Submit" />
+  </form>
+</body>
+
+</html>
