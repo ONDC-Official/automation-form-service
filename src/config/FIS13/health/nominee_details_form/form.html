@@ -1,0 +1,136 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nominee Details</title>
+</head>
+
+<body>
+<form id="nominee_details_form" method="POST" action="<%= actionUrl %>">
+
+    <h3>Nominee 1</h3>
+    <label for="firstName_1">First Name</label>
+    <input type="text" id="firstName_1" name="firstName_1" placeholder="Enter first name" />
+
+    <label for="lastName_1">Last Name</label>
+    <input type="text" id="lastName_1" name="lastName_1" placeholder="Enter last name" />
+
+    <label for="dob_1">Date of Birth</label>
+    <input type="date" id="dob_1" name="dob_1" />
+
+    <label for="relation_1">Relationship with Proposer</label>
+    <select name="relation_1" id="relation_1">
+      <option value="self">Self</option>
+      <option value="spouse">Spouse</option>
+      <option value="son">Son</option>
+      <option value="daughter">Daughter</option>
+      <option value="father">Father</option>
+      <option value="mother">Mother</option>
+      <option value="other">Other</option>
+    </select>
+
+    <h3>Nominee 2</h3>
+    <label for="firstName_2">First Name</label>
+    <input type="text" id="firstName_2" name="firstName_2" placeholder="Enter first name" />
+
+    <label for="lastName_2">Last Name</label>
+    <input type="text" id="lastName_2" name="lastName_2" placeholder="Enter last name" />
+
+    <label for="dob_2">Date of Birth</label>
+    <input type="date" id="dob_2" name="dob_2" />
+
+    <label for="relation_2">Relationship with Proposer</label>
+    <select name="relation_2" id="relation_2">
+      <option value="self">Self</option>
+      <option value="spouse">Spouse</option>
+      <option value="son">Son</option>
+      <option value="daughter">Daughter</option>
+      <option value="father">Father</option>
+      <option value="mother">Mother</option>
+      <option value="other">Other</option>
+    </select>
+
+    <input type="hidden" id="formId" name="formId" value="FO8" />
+
+    <input type="submit" value="Submit" />
+
+  </form>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nominee Details</title>
+</head>
+
+<body>
+
+<form id="nominee_details_form" method="POST" action="<%= actionUrl %>">
+
+    <!-- Nominee 1 -->
+    <fieldset>
+      <legend><h3>Nominee 1</h3></legend>
+
+      <label for="nominee1_firstName">First Name</label>
+      <input type="text" id="nominee1_firstName" name="nominee1_firstName" placeholder="Enter first name" />
+
+      <label for="nominee1_lastName">Last Name</label>
+      <input type="text" id="nominee1_lastName" name="nominee1_lastName" placeholder="Enter last name" />
+
+      <label for="nominee1_dob">Date of Birth</label>
+      <input type="date" id="nominee1_dob" name="nominee1_dob" />
+
+      <label for="nominee1_relation">Relationship with Proposer</label>
+      <select name="nominee1_relation" id="nominee1_relation">
+        <option value="self">Self</option>
+        <option value="spouse">Spouse</option>
+        <option value="son">Son</option>
+        <option value="daughter">Daughter</option>
+        <option value="father">Father</option>
+        <option value="mother">Mother</option>
+        <option value="other">Other</option>
+      </select>
+    </fieldset>
+
+    <!-- Nominee 2 -->
+    <fieldset>
+      <legend><h3>Nominee 2</h3></legend>
+
+      <label for="nominee2_firstName">First Name</label>
+      <input type="text" id="nominee2_firstName" name="nominee2_firstName" placeholder="Enter first name" />
+
+      <label for="nominee2_lastName">Last Name</label>
+      <input type="text" id="nominee2_lastName" name="nominee2_lastName" placeholder="Enter last name" />
+
+      <label for="nominee2_dob">Date of Birth</label>
+      <input type="date" id="nominee2_dob" name="nominee2_dob" />
+
+      <label for="nominee2_relation">Relationship with Proposer</label>
+      <select name="nominee2_relation" id="nominee2_relation">
+        <option value="self">Self</option>
+        <option value="spouse">Spouse</option>
+        <option value="son">Son</option>
+        <option value="daughter">Daughter</option>
+        <option value="father">Father</option>
+        <option value="mother">Mother</option>
+        <option value="other">Other</option>
+      </select>
+    </fieldset>
+
+    <input type="hidden" id="formId" name="formId" value="FO8" />
+
+    <input type="submit" value="Submit" />
+
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAN & Date Of Birth as per PAN</title>
+</head>
+  <body>
+    <h2>PAN & Date Of Birth as per PAN</h2>
+
+    <form action="pan_details_form" method="POST" action="<%= actionUrl %>">
+      <p>
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="dob">
+      </p>
+
+      <p>
+        <label for="panValue">PAN Number:</label><br>
+        <input type="text" id="panValue" name="panValue">
+      </p>
+
+      <input type="hidden" id="formId" name="formId" value="FO4">
+      <input type="hidden" id="transactionId" name="transactionId" value="c04a04ee-d892-400f-bbe6-479a43b4448a">
+
+      <p>
+        <input type="submit" value="Submit">
+      </p>
+    </form>
+  </body>
+</html>
