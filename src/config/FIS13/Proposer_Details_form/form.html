@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Details</title>
+</head>
+
+<body>
+<form id="Proposer_Details_form" method="POST" action="<%= actionUrl %>">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName" placeholder="Enter first name" />
+
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" placeholder="Enter last name" />
+
+    <label for="address">Address</label>
+    <input type="text" id="address" name="address" placeholder="Enter address" />
+
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" name="dob" />
+
+    <label for="gender">Gender</label>
+    <select name="gender" id="gender" required>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="transgender">Transgender</option>
+    </select>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="example@email.com" />
+
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" name="phone" placeholder="9876543210" />
+
+    <label for="politicallyExposedPerson">Politically Exposed Person</label>
+    <input type="checkbox" id="politicallyExposedPerson" name="politicallyExposedPerson" />
+
+    <label for="gstin">GSTIN</label>
+    <input type="text" id="gstin" name="gstin" placeholder="Enter GSTIN" />
+
+    <label for="weight">Weight</label>
+    <input type="text" id="weight" name="weight" placeholder="Enter weight in kg" />
+
+    <label for="height">Height</label>
+    <input type="text" id="height" name="height" placeholder="Enter height in cm" />
+
+    <label for="relation">Relationship with Insured Person</label>
+    <select name="relation" id="relation">
+      <option value="self">Self</option>
+      <option value="spouse">Spouse</option>
+      <option value="son">Son</option>
+      <option value="daughter">Daughter</option>
+      <option value="father">Father</option>
+      <option value="mother">Mother</option>
+    </select>
+
+    <br />
+    <h3>PED Questions</h3>
+    <p>Do you or any of the family members to be covered have/had any:</p>
+    <ul>
+      <li>
+        <label for="question1_1">Health complaints</label>
+        <select name="question1_1" id="question1_1">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </li>
+      <li>
+        <label for="question1_2">PED</label>
+        <select name="question1_2" id="question1_2">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </li>
+      <li>
+        <label for="question1_3">Met with any accident</label>
+        <select name="question1_3" id="question1_3">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <ul>
+          <strong>Follow up if Yes:</strong>
+          <li>
+            <label for="question1_3a">Major accident details / Any head trauma?</label>
+            <input type="text" id="question1_3a" name="question1_3a" />
+          </li>
+        </ul>
+      </li>
+      <li>
+        <label for="question1_4">Hospitalized for operation/medical treatment in past 4 years</label>
+        <select name="question1_4" id="question1_4">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <ul>
+          <strong>Follow up if Yes:</strong>
+          <li>
+            <label for="question1_4a">Diagnosis / Details</label>
+            <input type="text" id="question1_4a" name="question1_4a" />
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <label for="question2_1">Currently taking any treatment or medicine?</label>
+    <select name="question2_1" id="question2_1">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <br />
+    <h3>Lifestyle Questions</h3>
+
+    <label for="question7_1">Alcohol Consumption</label>
+    <select name="question7_1" id="question7_1">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+    <ul>
+      <strong>Follow up if Yes:</strong>
+      <li>
+        <label for="question7_1a">Frequency/week</label>
+        <input type="text" id="question7_1a" name="question7_1a" />
+      </li>
+    </ul>
+
+    <label for="question8_1">Smoker</label>
+    <select name="question8_1" id="question8_1">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+    <ul>
+      <strong>Follow up if Yes:</strong>
+      <li>
+        <label for="question8_1a">Frequency/week</label>
+        <input type="text" id="question8_1a" name="question8_1a" />
+      </li>
+    </ul>
+
+    <label for="question9_1">Tobacco / Gutkha / Pan Masala</label>
+    <select name="question9_1" id="question9_1">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+    <ul>
+      <strong>Follow up if Yes:</strong>
+      <li>
+        <label for="question9_1a">Frequency/week</label>
+        <input type="text" id="question9_1a" name="question9_1a" />
+      </li>
+    </ul>
+
+    <label for="formId">Form ID</label>
+    <input type="hidden" id="formId" name="formId" value="FO5" />
+
+    <input type="submit" value="Submit" />
+  </form>
+</body>
+
+</html>
