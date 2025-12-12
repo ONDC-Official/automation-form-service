@@ -15,7 +15,7 @@ domains:
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
       - name: "additional details"
-        url: "additional-details-form"
+        url: "additional_details_form"
         path: "TRV14/dynamic-sample-form"
         type: "static"
         sessionUpdateFunction: "update-session.ts"
