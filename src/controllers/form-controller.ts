@@ -91,7 +91,8 @@ export const submitForm = async (req: Request, res: Response) => {
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
       // Update the main session data to mark form as submitted (for frontend polling)
-      await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id);
+      // await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id);
+      await updateMainSessionWithFormSubmission(submissionData.session_id as string,  submissionData.transaction_id as string, submission_id, formUrl);
       console.log('Main session updated with form submission status');
       
       // DO NOT call mock service here - let frontend handle proceed

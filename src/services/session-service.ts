@@ -29,16 +29,15 @@ export const updateSession = async (
 };
 
 export const updateMainSessionWithFormSubmission = async (
-  session_id: string,
-  transaction_id: string,
-  submission_id: string
-): Promise<void> => {
+session_id: string, transaction_id: string, submission_id: string, formUrl?: string): Promise<void> => {
   try {
-    console.log(`Updating main session ${session_id} to mark transaction ${transaction_id} as submitted`);
-    
+    // Create unique key using transactionId and formUrl to distinguish multiple forms in same transaction
+    const formKey = formUrl ? `${transaction_id}_${formUrl}` : transaction_id;
+
+
     // Get the main session data
     const sessionData = await SessionService.getSessionData(session_id);
-    
+
     if (!sessionData) {
       console.error(`Main session ${session_id} not found`);
       throw new Error(`Session ${session_id} not found`);
@@ -49,19 +48,19 @@ export const updateMainSessionWithFormSubmission = async (
       sessionData.formSubmissions = {};
     }
 
-    // Mark this transaction's form as submitted
-    sessionData.formSubmissions[transaction_id] = {
+    // Mark this specific form as submitted using unique key (transactionId_formUrl)
+    sessionData.formSubmissions[formKey] = {
       submitted: true,
       submission_id: submission_id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      formUrl: formUrl || ''
     };
 
     console.log(`About to save formSubmissions:`, JSON.stringify(sessionData.formSubmissions, null, 2));
 
     // Save back to Redis
     await SessionService.updateSessionData(session_id, sessionData);
-    console.log(`✅ Main session updated: formSubmissions[${transaction_id}] =`, sessionData.formSubmissions[transaction_id]);
-    
+
     // Verify it was saved correctly
     const verifyData = await SessionService.getSessionData(session_id);
     console.log(`🔍 Verification - formSubmissions after save:`, verifyData.formSubmissions);

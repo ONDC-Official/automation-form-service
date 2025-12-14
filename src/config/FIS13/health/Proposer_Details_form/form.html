@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buyer Details</title>
+  </head>
+
+  <body>
+    <form id="Proposer_Details_form" method="POST" action="<%= actionUrl %>">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" />
+
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" />
+
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" />
+
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" />
+
+      <label for="gender">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="transgender">Transgender</option>
+      </select>
+
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" />
+
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" />
+
+      <label for="politicallyExposedPerson">Politically Exposed Person</label>
+      <input type="checkbox" id="politicallyExposedPerson" name="politicallyExposedPerson" />
+
+      <label for="gstin">GSTIN</label>
+      <input type="text" id="gstin" name="gstin" />
+
+      <!-- insured-details-form-data -->
+      <label for="weight">Weight</label>
+      <input type="text" id="weight" name="weight" />
+
+      <label for="height">Height</label>
+      <input type="text" id="height" name="height" />
+
+      <label for="relation">Relationship with Insured Person</label>
+      <select name="relation" id="relation">
+        <option value="self">Self</option>
+        <option value="spouse">Spouse</option>
+        <option value="son">Son</option>
+        <option value="daughter">Daughter</option>
+        <option value="father">Father</option>
+        <option value="mother">Mother</option>
+      </select>
+
+      <br />
+      <h3>PED Questions</h3>
+      <br />
+
+      <p>Do you or any of the family members to be covered have/had any</p>
+
+      <ul>
+        <li>
+          <label for="question1_1">Health complaints</label>
+          <select name="question1_1" id="question1_1">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li>
+          <label for="question1_2">PED</label>
+          <select name="question1_2" id="question1_2">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li>
+          <label for="question1_3">Met with any accident</label><br />
+          <select name="question1_3" id="question1_3">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+
+          <ul>
+            <strong>Follow up Question if Yes</strong><br />
+            <label for="question1_3a">Whether major accident? Any head trauma?</label>
+            <input type="text" id="question1_3a" name="question1_3a" />
+          </ul>
+        </li>
+
+        <li>
+          <label for="question1_4">Hospitalized for operation/medical treatment in the past 4 years</label><br />
+          <select name="question1_4" id="question1_4">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+
+          <ul>
+            <strong>Follow up Question if Yes</strong><br />
+            <label for="question1_4a">Please give details / diagnosis</label>
+            <input type="text" id="question1_4a" name="question1_4a" />
+          </ul>
+        </li>
+      </ul>
+
+      <label for="question2_1">Are you or any family member taking any treatment or medicine?</label>
+      <select name="question2_1" id="question2_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <p>Have you or any family members suffered from or been treated for any of the following?</p>
+
+      <ul>
+        <li><label for="question3_1">Diabetes</label>
+          <select name="question3_1" id="question3_1">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_2">Hypertension / High BP</label>
+          <select name="question3_2" id="question3_2">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_3">Stroke</label>
+          <select name="question3_3" id="question3_3">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_4">Hepatitis B</label>
+          <select name="question3_4" id="question3_4">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_5">Ulcer / Cyst / Cancer</label>
+          <select name="question3_5" id="question3_5">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_6">Cardiac Disorder</label>
+          <select name="question3_6" id="question3_6">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_7">Kidney / Urinary Tract Disorder</label>
+          <select name="question3_7" id="question3_7">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_8">Musculoskeletal Disorders</label>
+          <select name="question3_8" id="question3_8">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_9">Slipped Disc</label>
+          <select name="question3_9" id="question3_9">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_10">Blood Disorder</label>
+          <select name="question3_10" id="question3_10">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_11">Cholesterol</label>
+          <select name="question3_11" id="question3_11">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_12">Respiratory Disorder</label>
+          <select name="question3_12" id="question3_12">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_13">Congenital / Birth Defects</label>
+          <select name="question3_13" id="question3_13">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_14">Nervous System Disorder</label>
+          <select name="question3_14" id="question3_14">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_15">Mental Illness</label>
+          <select name="question3_15" id="question3_15">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_16">Female Reproductive Conditions</label>
+          <select name="question3_16" id="question3_16">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_17">ENT Disorders</label>
+          <select name="question3_17" id="question3_17">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+
+        <li><label for="question3_18">HIV / AIDS</label>
+          <select name="question3_18" id="question3_18">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </li>
+      </ul>
+
+      <br />
+
+      <label for="question4_1">Family history of cancer, heart attack, or stroke</label>
+      <select name="question4_1" id="question4_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <ul>
+        <strong>Follow up Question if Yes</strong>
+        <li>
+          <label for="question4_1a">Age of insured</label>
+          <input type="text" id="question4_1a" name="question4_1a" />
+        </li>
+      </ul>
+
+      <br />
+
+      <label for="question5_1">Any person to be insured is pregnant?</label>
+      <select name="question5_1" id="question5_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <ul>
+        <strong>Follow up Question if Yes</strong>
+        <li>
+          <label for="question5_1a">Months</label>
+          <input type="text" id="question5_1a" name="question5_1a" />
+        </li>
+      </ul>
+
+      <br />
+
+      <label for="question6_1">Has any proposal ever been postponed, declined, or accepted on special terms?</label>
+      <select name="question6_1" id="question6_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+
+      <h3>Lifestyle Questions</h3>
+
+      <label for="question7_1">Alcohol Consumption</label>
+      <select name="question7_1" id="question7_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <ul>
+        <strong>Follow up Question if Yes</strong>
+        <li>
+          <label for="question7_1a">Frequency/week</label>
+          <input type="text" id="question7_1a" name="question7_1a" />
+        </li>
+      </ul>
+
+      <label for="question8_1">Smoker</label>
+      <select name="question8_1" id="question8_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <ul>
+        <strong>Follow up Question if Yes</strong>
+        <li>
+          <label for="question8_1a">Frequency/week</label>
+          <input type="text" id="question8_1a" name="question8_1a" />
+        </li>
+      </ul>
+
+      <label for="question9_1">Tobacco/Gutkha/Pan Masala</label>
+      <select name="question9_1" id="question9_1">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <br />
+      <ul>
+        <strong>Follow up Question if Yes</strong>
+        <li>
+          <label for="question9_1a">Frequency/week</label>
+          <input type="text" id="question9_1a" name="question9_1a" />
+        </li>
+      </ul>
+
+      <label for="question9_2">Narcotic Substances</label>
+      <select name="question9_2" id="question9_2">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <input type="hidden" id="formId" name="formId" value="FO5" />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

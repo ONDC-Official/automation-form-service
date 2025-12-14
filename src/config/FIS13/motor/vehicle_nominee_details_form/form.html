@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle & Nominee Details</title>
+</head>
+
+<body>
+  <form id="vehicle_information_form" method="POST" action="<%= actionUrl %>">
+
+    <label for="registrationNumber">Vehicle Registration Number</label>
+    <input type="text" id="registrationNumber" name="registrationNumber" placeholder="Enter vehicle registration number" />
+
+    <label for="chassisNumber">Chassis Number</label>
+    <input type="text" id="chassisNumber" name="chassisNumber" placeholder="Enter chassis number" />
+
+    <label for="engineNumber">Engine Number</label>
+    <input type="text" id="engineNumber" name="engineNumber" placeholder="Enter engine number" />
+
+    <label for="previousPolicyNumber">Previous Policy Number</label>
+    <input type="text" id="previousPolicyNumber" name="previousPolicyNumber" placeholder="Enter previous policy number" />
+
+    <label for="previousPolicyIssuer">Previous Policy Issuer</label>
+    <input type="text" id="previousPolicyIssuer" name="previousPolicyIssuer" placeholder="Enter previous policy issuer name" />
+
+    <label for="previousTPPolicyIssuer">Previous TP Policy Issuer</label>
+    <input type="text" id="previousTPPolicyIssuer" name="previousTPPolicyIssuer" placeholder="Enter previous TP policy issuer name" />
+
+    <label for="previousTPPolicyNumber">Previous TP Policy Number</label>
+    <input type="text" id="previousTPPolicyNumber" name="previousTPPolicyNumber" placeholder="Enter previous TP policy number" />
+
+    <label for="nomineeName">Nominee Name</label>
+    <input type="text" id="nomineeName" name="nomineeName" placeholder="Enter nominee name" />
+
+    <label for="nomineeDOB">Nominee Date of Birth</label>
+    <input type="date" id="nomineeDOB" name="nomineeDOB" />
+
+    <label for="relationshipNominee">Relationship with Nominee</label>
+    <input type="text" id="relationshipNominee" name="relationshipNominee" placeholder="Enter relationship with nominee" />
+
+    <label for="apointeeName">Appointee Name</label>
+    <input type="text" id="apointeeName" name="apointeeName" placeholder="Enter appointee name" />
+
+    <label for="apointeeRelationship">Appointee Relationship with Nominee</label>
+    <input type="text" id="apointeeRelationship" name="apointeeRelationship" placeholder="Enter appointee's relationship with nominee" />
+
+    <input type="hidden" id="formId" name="formId" value="FO6">
+    <input type="hidden" id="transactionId" name="transactionId" value="c04a04ee-d892-400f-bbe6-479a43b4448a">
+
+    <input type="submit" value="Submit">
+
+  </form>
+</body>
+
+</html>
