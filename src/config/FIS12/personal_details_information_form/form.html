@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+    .checkbox {
+      width: auto;
+      margin-right: 8px;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>User Personal Details</h2>
+
+    <form id= "personal_details_information_form" action="<%= actionUrl %>" method="post">
+
+      <label for="fullName">Name as per PAN</label>
+      <input type="text" id="fullName" name="fullName" required />
+
+      <label for="personalEmail">Personal Email</label>
+      <input type="email" id="personalEmail" name="personalEmail" />
+
+      <label for="officialEmail">Official Email</label>
+      <input type="email" id="officialEmail" name="officialEmail" />
+
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="transgender">Transgender</option>
+      </select>
+
+      <label for="pan">PAN</label>
+      <input type="text" id="pan" name="pan" required />
+
+      <label for="contactNumber">Contact Number</label>
+      <input type="tel" id="contactNumber" name="contactNumber" required />
+
+      <label for="employmentType">Employment Type</label>
+      <select id="employmentType" name="employmentType" required>
+        <option value="">Select Employment Type</option>
+        <option value="salaried">Salaried</option>
+        <option value="selfEmployed">Self Employed</option>
+      </select>
+
+      <label for="income">Income</label>
+      <input type="number" id="income" name="income" required />
+
+      <label for="companyName">Company Name</label>
+      <input type="text" id="companyName" name="companyName" required />
+
+      <label for="udyamNumber">UDYAM Number</label>
+      <input type="text" id="udyamNumber" name="udyamNumber" />
+
+      <label for="addressL1">Address Line 1</label>
+      <input type="text" id="addressL1" name="addressL1" />
+
+      <label for="addressL2">Address Line 2</label>
+      <input type="text" id="addressL2" name="addressL2" />
+
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" />
+
+      <label for="state">State</label>
+      <input type="text" id="state" name="state" />
+
+      <label for="pincode">Pin Code</label>
+      <input type="text" id="pincode" name="pincode" />
+
+      <label for="aa_id">Account Aggregator ID</label>
+      <input type="text" id="aa_id" name="aa_id" />
+
+      <label for="downpayment">Downpayment</label>
+      <input type="number" id="downpayment" name="downpayment" />
+
+      <label>
+        <input type="checkbox" class="checkbox" id="bureauConsent" name="bureauConsent" required />
+        I give consent for bureau check
+      </label>
+
+      <input type="hidden" id="formId" name="formId" value="FO2" />
+
+      <input type="submit" value="Submit" class="submit-btn" />
+    </form>
+  </div>
+</body>
+</html>
