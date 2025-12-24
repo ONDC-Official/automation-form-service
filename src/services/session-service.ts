@@ -1,3 +1,4 @@
+
 import { SessionService } from './mock-session-service';
 
 export const updateSession = async (
@@ -34,6 +35,13 @@ session_id: string, transaction_id: string, submission_id: string, formUrl?: str
     // Create unique key using transactionId and formUrl to distinguish multiple forms in same transaction
     const formKey = formUrl ? `${transaction_id}_${formUrl}` : transaction_id;
 
+    console.log(`Updating main session ${session_id} to mark form ${formKey} as submitted`);
+    console.log(`🔴 [FORM-SERVICE] updateMainSessionWithFormSubmission called with:`);
+    console.log(`   session_id: "${session_id}"`);
+    console.log(`   transaction_id: "${transaction_id}"`);
+    console.log(`   submission_id: "${submission_id}"`);
+    console.log(`   formUrl: "${formUrl}"`);
+    console.log(`   formKey: "${formKey}"`);
 
     // Get the main session data
     const sessionData = await SessionService.getSessionData(session_id);
@@ -60,6 +68,7 @@ session_id: string, transaction_id: string, submission_id: string, formUrl?: str
 
     // Save back to Redis
     await SessionService.updateSessionData(session_id, sessionData);
+    console.log(`✅ Main session updated: formSubmissions[${formKey}] =`, sessionData.formSubmissions[formKey]);
 
     // Verify it was saved correctly
     const verifyData = await SessionService.getSessionData(session_id);
@@ -69,3 +78,4 @@ session_id: string, transaction_id: string, submission_id: string, formUrl?: str
     throw error;
   }
 };
+
