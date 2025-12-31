@@ -84,7 +84,7 @@ export const submitForm = async (req: Request, res: Response) => {
     console.log('Updating session with form data:', formData);
     const submission_id = randomUUID();
     formData.form_submission_id = submission_id;
-
+    await updateSession(formConfig.url, formData, submissionData.transaction_id);
     await updateSession(formConfig.url, formData, submissionData.session_id);
     console.log('Session updated successfully');
     
