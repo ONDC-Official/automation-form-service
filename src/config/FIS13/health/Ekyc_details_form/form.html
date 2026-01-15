@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eKYC Details</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 550px;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .header-icon svg {
+      width: 64px;
+      height: 64px;
+      color: #667eea;
+    }
+
+    h1 {
+      color: #2d3748;
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2d3748;
+      font-size: 14px;
+    }
+
+    .required-indicator {
+      color: #e53e3e;
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
+      background-color: #ffffff;
+      color: #2d3748;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:hover,
+    input[type="date"]:hover,
+    select:hover,
+    textarea:hover {
+      border-color: #cbd5e0;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background-color: #f7fafc;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .checkbox-group label {
+      margin-bottom: 0;
+      font-weight: 500;
+      color: #4a5568;
+      font-size: 14px;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .input-hint {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 4px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+      margin: 24px 0;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title svg {
+      width: 20px;
+      height: 20px;
+      color: #667eea;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 30px 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <div class="header-icon">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+      </svg>
+    </div>
+    <h1>eKYC Verification</h1>
+    <p class="subtitle">Please provide your KYC details for verification</p>
+
+    <form id="Ekyc_details_form" method="POST" action="<%= actionUrl %>">
+
+      <div class="section-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        </svg>
+        Identity Information
+      </div>
+
+      <div class="form-group">
+        <label for="userType">
+          User Type
+          <span class="required-indicator">*</span>
+        </label>
+        <select name="userType" id="userType" required>
+          <option value="">-- Select User Type --</option>
+          <option value="individual">Individual</option>
+          <option value="non-individual">Non-Individual</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pan">
+            PAN Number
+            <span class="required-indicator">*</span>
+          </label>
+          <input
+            type="text"
+            id="pan"
+            name="pan"
+            placeholder="ABCDE1234F"
+            pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+            maxlength="10"
+            title="PAN must be in format: ABCDE1234F"
+            required
+          />
+          <p class="input-hint">Format: 5 letters, 4 digits, 1 letter</p>
+        </div>
+
+        <div class="form-group">
+          <label for="aadhaar">
+            Aadhaar Number
+            <span class="required-indicator">*</span>
+          </label>
+          <input
+            type="text"
+            id="aadhaar"
+            name="aadhaar"
+            placeholder="123456789012"
+            pattern="[2-9]{1}[0-9]{11}"
+            maxlength="12"
+            title="Aadhaar must be 12 digits"
+            required
+          />
+          <p class="input-hint">12-digit Aadhaar number</p>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Personal Details
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">
+            Full Name (as per KYC)
+            <span class="required-indicator">*</span>
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter full name"
+            pattern="[A-Za-z\s]{2,50}"
+            maxlength="50"
+            title="Name must contain only letters and spaces"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="dob">
+            Date of Birth
+            <span class="required-indicator">*</span>
+          </label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        Address Information
+      </div>
+
+      <div class="form-group">
+        <label for="address">
+          Address
+          <span class="required-indicator">*</span>
+        </label>
+        <textarea
+          id="address"
+          name="address"
+          rows="3"
+          placeholder="Enter your complete address"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="pincode">
+          Pincode
+          <span class="required-indicator">*</span>
+        </label>
+        <input
+          type="text"
+          id="pincode"
+          name="pincode"
+          placeholder="123456"
+          pattern="[1-9][0-9]{5}"
+          maxlength="6"
+          title="Pincode must be 6 digits"
+          required
+          style="max-width: 200px;"
+        />
+        <p class="input-hint">6-digit postal code</p>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="bureauConsent" name="bureauConsent" required />
+        <label for="bureauConsent">
+          I authorize verification of my details through KYC sources and consent to the processing of my personal information for verification purposes.
+        </label>
+      </div>
+
+      <input type="hidden" id="formId" name="formId" value="EKYC01" />
+
+      <button type="submit" class="submit-btn">Submit eKYC Details</button>
+    </form>
+  </div>
+</body>
+
+</html>

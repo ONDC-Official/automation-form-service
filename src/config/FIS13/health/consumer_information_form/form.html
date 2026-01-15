@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIS Details - Health Insurance</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: #f7f7f7;
+    }
+    h2 {
+      background: #004aad;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    fieldset {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: white;
+      border: 1px solid #ccc;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+    }
+    button {
+      background: #004aad;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #003780;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>CIS Details Form – Health Insurance</h2>
+
+  <form id="consumer_information_form" method="POST" action="<%= actionUrl %>">
+
+    <!-- Basic Details -->
+    <fieldset>
+      <legend><strong>1. Basic Details</strong></legend>
+
+      <label for="full_name">Full Name</label>
+      <input type="text" id="full_name" name="full_name" required>
+
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" required>
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="">-- Select --</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+
+      <label for="marital_status">Marital Status</label>
+      <select id="marital_status" name="marital_status">
+        <option value="">-- Select --</option>
+        <option>Single</option>
+        <option>Married</option>
+        <option>Divorced</option>
+        <option>Widowed</option>
+      </select>
+    </fieldset>
+
+    <!-- Contact Details -->
+    <fieldset>
+      <legend><strong>2. Contact Details</strong></legend>
+
+      <label for="phone">Mobile Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="email">Email ID</label>
+      <input type="email" id="email" name="email" required>
+    </fieldset>
+
+    <!-- Address -->
+    <fieldset>
+      <legend><strong>3. Address Details</strong></legend>
+
+      <label for="address">Full Address</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" required>
+
+      <label for="state">State</label>
+      <input type="text" id="state" name="state" required>
+
+      <label for="pincode">Pincode</label>
+      <input type="text" id="pincode" name="pincode" required>
+    </fieldset>
+
+    <!-- Health Details -->
+    <fieldset>
+      <legend><strong>4. Health Information</strong></legend>
+
+      <label for="existing_diseases">Existing Diseases</label>
+      <textarea id="existing_diseases" name="existing_diseases" placeholder="If any"></textarea>
+
+      <label for="hospitalization_history">Hospitalization History (Past 5 Years)</label>
+      <textarea id="hospitalization_history" name="hospitalization_history" placeholder="If any"></textarea>
+    </fieldset>
+
+    <!-- Nominee Details -->
+    <fieldset>
+      <legend><strong>5. Nominee Details</strong></legend>
+
+      <label for="nominee_name">Nominee Name</label>
+      <input type="text" id="nominee_name" name="nominee_name" required>
+
+      <label for="nominee_relation">Relation with Proposer</label>
+      <input type="text" id="nominee_relation" name="nominee_relation" required>
+
+      <label for="nominee_age">Nominee Age</label>
+      <input type="number" id="nominee_age" name="nominee_age" required>
+    </fieldset>
+
+    <!-- Declaration -->
+    <fieldset>
+      <legend><strong>6. Declaration</strong></legend>
+      <label>
+        <input type="checkbox" required>
+        I hereby declare that all the information provided is true and accurate to the best of my knowledge.
+      </label>
+    </fieldset>
+
+    <button type="submit">Submit CIS Details</button>
+
+  </form>
+
+</body>
+</html>
