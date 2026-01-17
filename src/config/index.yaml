@@ -110,6 +110,12 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "E_sign_verification_status"
+        url: "E_sign_verification_status"
+        path: "FIS12/purchase_finance/E_sign_verification_status"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
   - name: 'FIS13'
     version: '2.0.1'
     forms:
