@@ -196,6 +196,4 @@ domains:
         path: "FIS13/motor/kyc_details_form"
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
-        successRedirect: "https://example.com/success"  
-  
-  
+        successRedirect: "https://example.com/success"
