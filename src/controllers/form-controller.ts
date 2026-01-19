@@ -12,9 +12,9 @@ export const getForm = async (req: Request, res: Response) => {
   const { session_id, flow_id, transaction_id, direct } = req.query;
   // Determine the actual form URL to look up
   const actualFormUrl = domain ? `${domain}/${formUrl}` : formUrl;
-
+console.log("actualFormUrl",domain,formUrl,actualFormUrl);
   const formConfig = await centralConfigService.getFormConfig(actualFormUrl);
-
+console.log("formConfig",formConfig);
   if (!formConfig) {
     return res.status(404).json({ error: 'Form not found' });
   }
