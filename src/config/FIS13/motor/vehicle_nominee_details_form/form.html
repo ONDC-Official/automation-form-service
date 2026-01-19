@@ -5,53 +5,429 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vehicle & Nominee Details</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 550px;
+      animation: slideUp 0.4s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: #2d3748;
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .section-title {
+      color: #4a5568;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title svg {
+      width: 24px;
+      height: 24px;
+      color: #667eea;
+    }
+
+    .form-section {
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #2d3748;
+      font-size: 15px;
+    }
+
+    .required-indicator {
+      color: #e53e3e;
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #ffffff;
+      color: #2d3748;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:hover,
+    input[type="date"]:hover,
+    select:hover {
+      border-color: #cbd5e0;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    select option {
+      padding: 12px;
+      background-color: #ffffff;
+      color: #2d3748;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .status-icon svg {
+      width: 64px;
+      height: 64px;
+      color: #667eea;
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 6px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 30px 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <form id="vehicle_information_form" method="POST" action="<%= actionUrl %>">
+  <div class="form-container">
+    <div class="status-icon">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
+      </svg>
+    </div>
+    <h1>Vehicle & Nominee Details</h1>
+    <p class="subtitle">Please provide vehicle information and nominee details</p>
 
-    <label for="registrationNumber">Vehicle Registration Number</label>
-    <input type="text" id="registrationNumber" name="registrationNumber" placeholder="Enter vehicle registration number" />
+    <form id="vehicle_nominee_details_form" method="POST" action="<%= actionUrl %>">
 
-    <label for="chassisNumber">Chassis Number</label>
-    <input type="text" id="chassisNumber" name="chassisNumber" placeholder="Enter chassis number" />
+      <!-- Vehicle Details Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          Vehicle Information
+        </div>
 
-    <label for="engineNumber">Engine Number</label>
-    <input type="text" id="engineNumber" name="engineNumber" placeholder="Enter engine number" />
+        <div class="form-group">
+          <label for="registrationNumber">
+            Vehicle Registration Number
+            <span class="required-indicator">*</span>
+          </label>
+          <input
+            type="text"
+            id="registrationNumber"
+            name="registrationNumber"
+            placeholder="e.g., MH01AB1234"
+            required
+          />
+          <p class="helper-text">Enter your vehicle registration number</p>
+        </div>
 
-    <label for="previousPolicyNumber">Previous Policy Number</label>
-    <input type="text" id="previousPolicyNumber" name="previousPolicyNumber" placeholder="Enter previous policy number" />
+        <div class="two-column">
+          <div class="form-group">
+            <label for="chassisNumber">
+              Chassis Number
+              <span class="required-indicator">*</span>
+            </label>
+            <input
+              type="text"
+              id="chassisNumber"
+              name="chassisNumber"
+              placeholder="Enter chassis number"
+              required
+            />
+          </div>
 
-    <label for="previousPolicyIssuer">Previous Policy Issuer</label>
-    <input type="text" id="previousPolicyIssuer" name="previousPolicyIssuer" placeholder="Enter previous policy issuer name" />
+          <div class="form-group">
+            <label for="engineNumber">
+              Engine Number
+              <span class="required-indicator">*</span>
+            </label>
+            <input
+              type="text"
+              id="engineNumber"
+              name="engineNumber"
+              placeholder="Enter engine number"
+              required
+            />
+          </div>
+        </div>
+      </div>
 
-    <label for="previousTPPolicyIssuer">Previous TP Policy Issuer</label>
-    <input type="text" id="previousTPPolicyIssuer" name="previousTPPolicyIssuer" placeholder="Enter previous TP policy issuer name" />
+      <!-- Previous Policy Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          Previous Policy Details
+        </div>
 
-    <label for="previousTPPolicyNumber">Previous TP Policy Number</label>
-    <input type="text" id="previousTPPolicyNumber" name="previousTPPolicyNumber" placeholder="Enter previous TP policy number" />
+        <div class="two-column">
+          <div class="form-group">
+            <label for="previousPolicyNumber">Previous Policy Number</label>
+            <input
+              type="text"
+              id="previousPolicyNumber"
+              name="previousPolicyNumber"
+              placeholder="Enter policy number"
+            />
+          </div>
 
-    <label for="nomineeName">Nominee Name</label>
-    <input type="text" id="nomineeName" name="nomineeName" placeholder="Enter nominee name" />
+          <div class="form-group">
+            <label for="previousPolicyIssuer">Previous Policy Issuer</label>
+            <input
+              type="text"
+              id="previousPolicyIssuer"
+              name="previousPolicyIssuer"
+              placeholder="Enter issuer name"
+            />
+          </div>
+        </div>
 
-    <label for="nomineeDOB">Nominee Date of Birth</label>
-    <input type="date" id="nomineeDOB" name="nomineeDOB" />
+        <div class="two-column">
+          <div class="form-group">
+            <label for="previousTPPolicyNumber">Previous TP Policy Number</label>
+            <input
+              type="text"
+              id="previousTPPolicyNumber"
+              name="previousTPPolicyNumber"
+              placeholder="Enter TP policy number"
+            />
+          </div>
 
-    <label for="relationshipNominee">Relationship with Nominee</label>
-    <input type="text" id="relationshipNominee" name="relationshipNominee" placeholder="Enter relationship with nominee" />
+          <div class="form-group">
+            <label for="previousTPPolicyIssuer">Previous TP Policy Issuer</label>
+            <input
+              type="text"
+              id="previousTPPolicyIssuer"
+              name="previousTPPolicyIssuer"
+              placeholder="Enter TP issuer name"
+            />
+          </div>
+        </div>
+      </div>
 
-    <label for="apointeeName">Appointee Name</label>
-    <input type="text" id="apointeeName" name="apointeeName" placeholder="Enter appointee name" />
+      <!-- Nominee Details Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          Nominee Details
+        </div>
 
-    <label for="apointeeRelationship">Appointee Relationship with Nominee</label>
-    <input type="text" id="apointeeRelationship" name="apointeeRelationship" placeholder="Enter appointee's relationship with nominee" />
+        <div class="form-group">
+          <label for="nomineeName">
+            Nominee Name
+            <span class="required-indicator">*</span>
+          </label>
+          <input
+            type="text"
+            id="nomineeName"
+            name="nomineeName"
+            placeholder="Enter nominee's full name"
+            required
+          />
+        </div>
 
-    <input type="hidden" id="formId" name="formId" value="FO6">
-    <input type="hidden" id="transactionId" name="transactionId" value="c04a04ee-d892-400f-bbe6-479a43b4448a">
+        <div class="two-column">
+          <div class="form-group">
+            <label for="nomineeDOB">
+              Nominee Date of Birth
+              <span class="required-indicator">*</span>
+            </label>
+            <input
+              type="date"
+              id="nomineeDOB"
+              name="nomineeDOB"
+              required
+            />
+          </div>
 
-    <input type="submit" value="Submit">
+          <div class="form-group">
+            <label for="relationshipNominee">
+              Relationship with Nominee
+              <span class="required-indicator">*</span>
+            </label>
+            <select id="relationshipNominee" name="relationshipNominee" required>
+              <option value="">-- Select Relationship --</option>
+              <option value="spouse">Spouse</option>
+              <option value="parent">Parent</option>
+              <option value="child">Child</option>
+              <option value="sibling">Sibling</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-  </form>
+      <!-- Appointee Details Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          Appointee Details (if nominee is minor)
+        </div>
+
+        <div class="two-column">
+          <div class="form-group">
+            <label for="apointeeName">Appointee Name</label>
+            <input
+              type="text"
+              id="apointeeName"
+              name="apointeeName"
+              placeholder="Enter appointee name"
+            />
+            <p class="helper-text">Required if nominee is a minor</p>
+          </div>
+
+          <div class="form-group">
+            <label for="apointeeRelationship">Appointee Relationship</label>
+            <select id="apointeeRelationship" name="apointeeRelationship">
+              <option value="">-- Select Relationship --</option>
+              <option value="parent">Parent</option>
+              <option value="guardian">Guardian</option>
+              <option value="grandparent">Grandparent</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" id="formId" name="formId" value="FO6">
+      <input type="hidden" id="transactionId" name="transactionId" value="c04a04ee-d892-400f-bbe6-479a43b4448a">
+
+      <button type="submit" class="submit-btn">Submit Details</button>
+    </form>
+  </div>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
   <body>
     <h2>PAN & Date Of Birth as per PAN</h2>
 
-    <form action="pan_details_form" method="POST" action="<%= actionUrl %>">
+    <form id="pan_details_form" method="POST" action="<%= actionUrl %>">
       <p>
         <label for="dob">Date of Birth:</label><br>
         <input type="date" id="dob" name="dob">
@@ -21,11 +21,18 @@
       </p>
 
       <input type="hidden" id="formId" name="formId" value="FO4">
-      <input type="hidden" id="transactionId" name="transactionId" value="c04a04ee-d892-400f-bbe6-479a43b4448a">
+      <!-- <input type="hidden" id="transactionId" name="transactionId" value=""> -->
 
       <p>
         <input type="submit" value="Submit">
       </p>
     </form>
+    <!-- <script>
+      // Set transaction_id from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      console.log(urlParams,"urlParams>>>>>>")
+      console.log('urlParams.get>>>id', urlParams.get('transaction_id'))
+      document.getElementById('transactionId').value = urlParams.get('transaction_id') || '';
+    </script> -->
   </body>
 </html>
