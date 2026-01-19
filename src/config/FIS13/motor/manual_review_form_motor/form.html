@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verification Status</title>
+  <title>Manual Review From</title>
   <style>
     * {
       margin: 0;
@@ -170,13 +170,13 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
     </div>
-    <h1>Verification Status</h1>
+    <h1> Manual Review Status</h1>
     <p class="subtitle">Please select the current verification status</p>
 
-    <form id="verification_status" method="POST" action="<%= actionUrl %>">
+    <form id="manual_review_form_motor" method="POST" action="<%= actionUrl %>">
       <div class="form-group">
         <label for="idType">
-          Verification Status
+           Manual Review Status
           <span class="required-indicator">*</span>
         </label>
         <select id="idType" name="idType" required>
