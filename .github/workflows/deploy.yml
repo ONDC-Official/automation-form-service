@@ -21,9 +21,6 @@ jobs:
           chmod 600 ./key.pem
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-
-
           ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} -T <<EOF
           REPO_DIR=~/ONDC-automation-framework/form_service_dev
           echo "Removing existing repository directory if exists"
@@ -31,7 +28,6 @@ jobs:
           echo "Cloning repository from main branch"
           git clone --single-branch --branch main https://github.com/ONDC-Official/automation-form-service.git \$REPO_DIR
           EOF
-
       - name: Install Docker Compose (if not installed)
         run: |
           ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
@@ -45,7 +41,6 @@ jobs:
             echo "Docker Compose is already installed."
           fi
           EOF
-
       - name: Write secrets to .env on EC2
         run: |
           echo "Writing secrets to .env file"
@@ -62,29 +57,23 @@ jobs:
           echo "BACKEND_URL=${{ vars.BACKEND_URL }}" >> \$REPO_DIR/.env
           echo "NODE_ENV=${{ vars.NODE_ENV }}" >> \$REPO_DIR/.env
           echo "LOKI_HOST=${{ vars.LOKI_HOST }}" >> \$REPO_DIR/.env
-
           
           EOF
-
-
       - name: Automation Api Server Deployment
         run: |
           echo "Deploying with Docker Compose"
           ssh -i ./key.pem ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
           REPO_DIR=~/ONDC-automation-framework/form_service_dev
           cd \$REPO_DIR
-
           # Ensure the .env and docker-compose.yml files exist
           if [ ! -f .env ]; then
             echo ".env file not found!"
             exit 1
           fi
-
           if [ ! -f docker-compose.yml ]; then
             echo "docker-compose.yml file not found!"
             exit 1
           fi
-
           
           sudo docker compose up -d --build
           EOF
