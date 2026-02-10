@@ -12,9 +12,9 @@ export const getForm = async (req: Request, res: Response) => {
   const { session_id, flow_id, transaction_id, direct } = req.query;
   // Determine the actual form URL to look up
   const actualFormUrl = domain ? `${domain}/${formUrl}` : formUrl;
-console.log("actualFormUrl",domain,formUrl,actualFormUrl);
+  console.log("actualFormUrl", domain, formUrl, actualFormUrl);
   const formConfig = await centralConfigService.getFormConfig(actualFormUrl);
-console.log("formConfig",formConfig);
+  console.log("formConfig", formConfig);
   if (!formConfig) {
     return res.status(404).json({ error: 'Form not found' });
   }
@@ -25,7 +25,7 @@ console.log("formConfig",formConfig);
   // For dynamic forms without 'direct' flag, return a URL that user can open in new tab
   if (formConfig.type === 'dynamic' && !direct) {
     const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}&direct=true`;
-    
+
     return res.json({
       success: true,
       type: 'dynamic',
@@ -48,6 +48,7 @@ console.log("formConfig",formConfig);
   const newContent = ejs.render(htmlContent, {
     actionUrl: submitUrl,
     submissionData: JSON.stringify(submissionData),
+    transactionId: transaction_id,
   });
 
   return res.type('html').send(newContent);
@@ -58,16 +59,16 @@ export const submitForm = async (req: Request, res: Response) => {
   const formData = req.body;
 
   console.log("form submitted successfully");
-  const {session_id,flow_id,transaction_id} = req.query
-  
-  if(!session_id || !flow_id || !transaction_id){
-    return res.status(400).send({error:true, message:"session_id or flow_id or transaction_id not found in submission url "})
+  const { session_id, flow_id, transaction_id } = req.query
+
+  if (!session_id || !flow_id || !transaction_id) {
+    return res.status(400).send({ error: true, message: "session_id or flow_id or transaction_id not found in submission url " })
   }
 
-  const submissionData : any = {
-    session_id:session_id,
-    flow_id:flow_id,
-    transaction_id:transaction_id
+  const submissionData: any = {
+    session_id: session_id,
+    flow_id: flow_id,
+    transaction_id: transaction_id
   }
 
   // Determine the actual form URL to look up
@@ -87,18 +88,18 @@ export const submitForm = async (req: Request, res: Response) => {
     await updateSession(formConfig.url, formData, submissionData.transaction_id);
     await updateSession(formConfig.url, formData, submissionData.session_id);
     console.log('Session updated successfully');
-    
+
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
       // Update the main session data to mark form as submitted (for frontend polling)
       // await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id);
-      await updateMainSessionWithFormSubmission(submissionData.session_id as string,  submissionData.transaction_id as string, submission_id, formUrl);
+      await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl);
       console.log('Main session updated with form submission status');
-      
+
       // DO NOT call mock service here - let frontend handle proceed
       // This keeps the flow in INPUT-REQUIRED state so DynamicFormHandler can detect and proceed
       console.log('⏭️ Skipping mock service call for dynamic form - frontend will handle proceed');
-      
+
       // Return a nice success page for dynamic forms
       const successHtml = `
         <!DOCTYPE html>
@@ -196,7 +197,7 @@ export const submitForm = async (req: Request, res: Response) => {
 
       await callMockService(domain, submissionData, submission_id);
       // res.json({ success: true, submission_id: submission_id });
-      
+
       res.type('html').send(successHtml);
     } else {
       // For static forms: keep original JSON response
