@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual Review Form</title>
+  <title>Verification Status</title>
   <style>
     * {
       margin: 0;
@@ -12,7 +12,6 @@
       box-sizing: border-box;
     }
 
-    
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -171,19 +170,18 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
     </div>
-    <h1> Manual Review Status</h1>
+    <h1>Verification Status</h1>
     <p class="subtitle">Please select the current verification status</p>
 
-    <form id="verification_status" method="POST" action="<%= actionUrl %>">
+    <form id="Emanadate_verification_status" method="POST" action="<%= actionUrl %>">
       <div class="form-group">
         <label for="idType">
-           Manual Review Status
+          Verification Status
           <span class="required-indicator">*</span>
         </label>
         <select id="idType" name="idType" required>
           <option value="">-- Select Status --</option>
-          <option value="SUCCESS">COMPLETED</option>
-          <option value="PENDING">OFFLINE-PENDING</option>
+          <option value="APPROVED">APPROVED</option>
         </select>
       </div>
 
