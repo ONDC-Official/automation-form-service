@@ -1,0 +1,72 @@
+<html>
+    <body>
+        <form id="consumer_information_form" method="POST" action="<%= actionUrl %>">
+            <label for="investor_name">Investor Name</label>
+            <input id="investor_name" type="text" name="name" />
+            
+            <br />
+            <label for="investor_dob">Investor Date of Birth</label>
+            <input id="investor_dob" type="text" name="dob" />
+            
+            <br />
+            <label for="investor_gender">Investor Gender</label>
+            <select id="investor_gender" type="select" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="transgender">Transgender</option>
+            </select>
+
+            <br />
+            <label for="investor_ms">Marital Status</label>
+            <select id="investor_ms" type="select" name="marital_status">
+                <option value="married">Married</option>
+                <option value="unmarried">Unmarried</option>
+            </select>
+
+            <br />
+            <label for="investor_occ">Occupation</label>
+            <select id="investor_occ" type="select" name="occupation">
+                <option value="business">Business</option>
+                <option value="professional">Professional</option>
+                <option value="self_employed">Self-employed</option>
+                <option value="retired">Retired</option>
+                <option value="housewife">Housewife</option>
+                <option value="student">Student</option>
+                <option value="public_sector_service">Public Sector Service</option>
+                <option value="private_sector_service">Private Sector Service</option>
+                <option value="government_service">Government Service</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="doctor">Doctor</option>
+                <option value="forex_dealer">Forex Dealer</option>
+                <option value="service">Service</option>
+                <option value="others">Others</option>
+            </select>
+
+            <br />
+            <label for="investor_sw">Source of Wealth</label>
+            <select id="investor_sw" type="select" name="source_of_wealth">
+                <option value="salary">Salary</option>
+                <option value="business">Business</option>
+                <option value="gift">Gift</option>
+                <option value="ancestral_property">Ancestral Property</option>
+                <option value="rental_income">Rental Income</option>
+                <option value="prize_money">Prize Money</option>
+                <option value="royalty">Royalty</option>
+            </select>
+
+            <br />
+            <label for="investor_ir">Annual Income Range</label>
+            <select id="investor_ir" type="select" name="income_range">
+                <option value="upto_1lakh">Below 1L</option>
+                <option value="above_1lakh_upto_5lakh">1L to 5L</option>
+                <option value="above_5lakh_upto_10lakh">5L to 10L</option>
+                <option value="above_10lakh_upto_25lakh">10L to 25L</option>
+                <option value="above_25lakh_upto_1cr">25L to 1Cr</option>
+                <option value="above_1cr">Above 1Cr</option>
+            </select>
+
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

@@ -197,3 +197,13 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+  - name: 'FIS14'
+    version: '2.1.0'
+    forms:
+      - name: "investor_details_form"
+        url: "investor_details_form"
+        path: "FIS14/investor_details_form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+
