@@ -197,6 +197,18 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "payment_form"
+        url: "payment_form"
+        path: "FIS13/health/payment_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "payment_form_motor"
+        url: "payment_form_motor"
+        path: "FIS13/motor/payment_form_motor"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
   - name: 'FIS14'
     version: '2.1.0'
     forms:
