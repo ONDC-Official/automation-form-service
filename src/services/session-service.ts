@@ -30,7 +30,7 @@ export const updateSession = async (
 };
 
 export const updateMainSessionWithFormSubmission = async (
-session_id: string, transaction_id: string, submission_id: string, formUrl?: string): Promise<void> => {
+session_id: string, transaction_id: string, submission_id: string, formUrl?: string, idType?: string): Promise<void> => {
   try {
     // Create unique key using transactionId and formUrl to distinguish multiple forms in same transaction
     const formKey = formUrl ? `${transaction_id}_${formUrl}` : transaction_id;
@@ -61,7 +61,8 @@ session_id: string, transaction_id: string, submission_id: string, formUrl?: str
       submitted: true,
       submission_id: submission_id,
       timestamp: new Date().toISOString(),
-      formUrl: formUrl || ''
+      formUrl: formUrl || '',
+      ...(idType && { idType }),
     };
 
     console.log(`About to save formSubmissions:`, JSON.stringify(sessionData.formSubmissions, null, 2));

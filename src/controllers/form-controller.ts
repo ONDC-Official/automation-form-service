@@ -91,14 +91,11 @@ export const submitForm = async (req: Request, res: Response) => {
 
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
-      // Update the main session data to mark form as submitted (for frontend polling)
-      // await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id);
-      await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl);
-      console.log('Main session updated with form submission status');
+      // Call mock service FIRST so idType is stored before frontend detects submission
+      await callMockService(domain, submissionData, submission_id, formData);
 
-      // DO NOT call mock service here - let frontend handle proceed
-      // This keeps the flow in INPUT-REQUIRED state so DynamicFormHandler can detect and proceed
-      console.log('⏭️ Skipping mock service call for dynamic form - frontend will handle proceed');
+      // Update main session AFTER mock service call - this triggers frontend polling detection
+      await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl, formData?.idType);
 
       // Return a nice success page for dynamic forms
       const successHtml = `
@@ -195,13 +192,12 @@ export const submitForm = async (req: Request, res: Response) => {
         </html>
       `;
 
-      await callMockService(domain, submissionData, submission_id);
-      // res.json({ success: true, submission_id: submission_id });
+      // callMockService already called above before updateMainSessionWithFormSubmission
 
       res.type('html').send(successHtml);
     } else {
       // For static forms: keep original JSON response
-      await callMockService(domain, submissionData, submission_id);
+      await callMockService(domain, submissionData, submission_id, formData);
       res.json({ success: true, submission_id: submission_id });
     }
   } catch (error: any) {
