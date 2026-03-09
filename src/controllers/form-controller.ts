@@ -85,7 +85,9 @@ export const submitForm = async (req: Request, res: Response) => {
     console.log('Updating session with form data:', formData);
     const submission_id = randomUUID();
     formData.form_submission_id = submission_id;
+    logger.info("form data+++++++++++before session update", formData);
     await updateSession(formConfig.url, formData, submissionData.transaction_id);
+    logger.info("form data+++++++++++after session update", formData);
     await updateSession(formConfig.url, formData, submissionData.session_id);
     console.log('Session updated successfully');
 
@@ -93,7 +95,7 @@ export const submitForm = async (req: Request, res: Response) => {
     if (formConfig.type === 'dynamic') {
       // Call mock service FIRST so idType is stored before frontend detects submission
       await callMockService(domain, submissionData, submission_id, formData);
-
+      
       // Update main session AFTER mock service call - this triggers frontend polling detection
       await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl, formData?.idType);
 
