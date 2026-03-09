@@ -90,9 +90,15 @@ export const submitForm = async (req: Request, res: Response) => {
     await updateSession(formConfig.url, formData, submissionData.session_id);
     console.log('Session updated successfully');
     const sessionData = await SessionService.getSessionData(submissionData.transaction_id);
-    logger.info("session data transaction id ", sessionData);
+    const form_data = {
+      ...sessionData?.form_data,
+    };
+    logger.info("form data transaction id++++++++++ ", form_data);
     const sessionData1 = await SessionService.getSessionData(submissionData.session_id);
-    logger.info("session data session id ", sessionData1);
+    const form_data1 = {
+      ...sessionData1?.form_data,
+    };
+    logger.info("form data session id++++++++++ ", form_data1);
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
       // Call mock service FIRST so idType is stored before frontend detects submission
