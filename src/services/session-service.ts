@@ -1,5 +1,6 @@
 
 import { SessionService } from './mock-session-service';
+import logger from '@ondc/automation-logger';
 
 export const updateSession = async (
   formUrl: string,
@@ -8,11 +9,12 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(transaction_id);
-
+    logger.info("session data+++++++++++session update(transaction id)", sessionData);
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
+    logger.info("form data on basis of transaction id+++++++++++", form_data);
 
     if (!sessionData) {
       SessionService.updateSessionData(transaction_id, {
@@ -30,7 +32,7 @@ export const updateSession = async (
 };
 
 export const updateMainSessionWithFormSubmission = async (
-session_id: string, transaction_id: string, submission_id: string, formUrl?: string, idType?: string): Promise<void> => {
+  session_id: string, transaction_id: string, submission_id: string, formUrl?: string, idType?: string): Promise<void> => {
   try {
     // Create unique key using transactionId and formUrl to distinguish multiple forms in same transaction
     const formKey = formUrl ? `${transaction_id}_${formUrl}` : transaction_id;
