@@ -9,12 +9,10 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(transaction_id);
-    logger.info("session data+++++++++++session update(transaction id)", sessionData);
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
-    logger.info("form data on basis of transaction id+++++++++++", form_data);
 
     if (!sessionData) {
       SessionService.updateSessionData(transaction_id, {
