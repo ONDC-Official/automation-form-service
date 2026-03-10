@@ -27,6 +27,8 @@ export const updateSession = async (
     //get sessionData after update
     const updatedSessionData = await SessionService.getSessionData(transaction_id);
     console.log("updatedSessionData", JSON.stringify(updatedSessionData))
+    console.log("updatedSessionDataFormData", JSON.stringify(updatedSessionData.form_data))
+
   } catch (error) {
     console.error('Error updating session:', error);
     throw error;
