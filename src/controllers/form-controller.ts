@@ -204,13 +204,15 @@ export const submitForm = async (req: Request, res: Response) => {
       // This prevents the mock framework's saveDataForConfig from overwriting
       // the full 17-field form submission with only {submission_id, idType}
       logger.info("++++++ static form executed ++++++");
-      await callMockService(domain, submissionData, submission_id, formData);
+      
 
       //Re-save form data AFTER callMockService (defensive write)
       await updateSession(formConfig.url, formData, submissionData.transaction_id);
       await updateSession(formConfig.url, formData, submissionData.session_id);
       console.log('Session updated successfully (static form)');
       logger.info("form data after mock service call (static):", { transaction_id: submissionData.transaction_id });
+
+      await callMockService(domain, submissionData, submission_id, formData);
 
       res.json({ success: true, submission_id: submission_id });
     }
