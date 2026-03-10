@@ -9,7 +9,7 @@ export async function callMockService(domain: any, submissionData: any, submissi
     ...submissionData,
     inputs: {
       submission_id: submission_id,
-      ...(formData?.idType && { idType: formData.idType }),
+      ...(formData?.idType && { idType: formData?.idType }),
       ...formData,
     },
     json_path_changes: {},
