@@ -206,9 +206,9 @@ export const submitForm = async (req: Request, res: Response) => {
       logger.info("++++++ static form executed ++++++");
       await callMockService(domain, submissionData, submission_id, formData);
 
-      // Re-save form data AFTER callMockService (defensive write)
-      // await updateSession(formConfig.url, formData, submissionData.transaction_id);
-      // await updateSession(formConfig.url, formData, submissionData.session_id);
+      //Re-save form data AFTER callMockService (defensive write)
+      await updateSession(formConfig.url, formData, submissionData.transaction_id);
+      await updateSession(formConfig.url, formData, submissionData.session_id);
       console.log('Session updated successfully (static form)');
       logger.info("form data after mock service call (static):", { transaction_id: submissionData.transaction_id });
 
