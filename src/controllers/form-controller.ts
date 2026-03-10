@@ -86,24 +86,18 @@ export const submitForm = async (req: Request, res: Response) => {
     console.log('Updating session with form data:', formData);
     const submission_id = randomUUID();
     formData.form_submission_id = submission_id;
-    await updateSession(formConfig.url, formData, submissionData.transaction_id);
-    await updateSession(formConfig.url, formData, submissionData.session_id);
-    console.log('Session updated successfully');
-    const sessionData = await SessionService.getSessionData(submissionData.transaction_id);
-    const form_data = {
-      ...sessionData?.form_data,
-    };
-    logger.info("form data transaction id++++++++++ ", form_data);
-    const sessionData1 = await SessionService.getSessionData(submissionData.session_id);
-    const form_data1 = {
-      ...sessionData1?.form_data,
-    };
-    logger.info("form data session id++++++++++ ", form_data1);
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
       // Call mock service FIRST so idType is stored before frontend detects submission
       await callMockService(domain, submissionData, submission_id, formData);
-      
+
+      // Re-save form data AFTER callMockService to prevent mock framework from overwriting
+      // the full form submission with only {submission_id, idType}
+      await updateSession(formConfig.url, formData, submissionData.transaction_id);
+      await updateSession(formConfig.url, formData, submissionData.session_id);
+      console.log('Session updated successfully (dynamic form)');
+      logger.info("form data after mock service call (dynamic):", { transaction_id: submissionData.transaction_id });
+
       // Update main session AFTER mock service call - this triggers frontend polling detection
       await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl, formData?.idType);
 
@@ -206,8 +200,17 @@ export const submitForm = async (req: Request, res: Response) => {
 
       res.type('html').send(successHtml);
     } else {
-      // For static forms: keep original JSON response
+      // For static forms: call mock service first, then re-save form data
+      // This prevents the mock framework's saveDataForConfig from overwriting
+      // the full 17-field form submission with only {submission_id, idType}
       await callMockService(domain, submissionData, submission_id, formData);
+
+      // Re-save form data AFTER callMockService (defensive write)
+      await updateSession(formConfig.url, formData, submissionData.transaction_id);
+      await updateSession(formConfig.url, formData, submissionData.session_id);
+      console.log('Session updated successfully (static form)');
+      logger.info("form data after mock service call (static):", { transaction_id: submissionData.transaction_id });
+
       res.json({ success: true, submission_id: submission_id });
     }
   } catch (error: any) {
