@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { FormConfig } from '../types/form-types';
 import { centralConfigService } from '../config/central-config';
-import { updateSession, updateMainSessionWithFormSubmission } from '../services/session-service';
+import { updateSession, updateMainSessionWithFormSubmission, saveFormDataSeparately } from '../services/session-service';
 import { callMockService } from '../utils/mock-service';
 import ejs from 'ejs';
 import { randomUUID } from 'crypto';
@@ -200,17 +200,17 @@ export const submitForm = async (req: Request, res: Response) => {
 
       res.type('html').send(successHtml);
     } else {
-      // For static forms: call mock service first, then re-save form data
-      // This prevents the mock framework's saveDataForConfig from overwriting
-      // the full 17-field form submission with only {submission_id, idType}
       logger.info("++++++ static form executed ++++++");
-      
 
-      //Re-save form data AFTER callMockService (defensive write)
+      // Save to dedicated Redis key form_data_{transaction_id} BEFORE callMockService.
+      // This key is NEVER overwritten by the mock service's HTML_FORM handler or
+      // saveDataForConfig, so form data survives the race condition.
+      await saveFormDataSeparately(formConfig.url, formData, submissionData.transaction_id);
+
+      // Also update the main session keys as usual
       await updateSession(formConfig.url, formData, submissionData.transaction_id);
       await updateSession(formConfig.url, formData, submissionData.session_id);
       console.log('Session updated successfully (static form)');
-      logger.info("form data after mock service call (static):", { transaction_id: submissionData.transaction_id });
 
       await callMockService(domain, submissionData, submission_id, formData);
 

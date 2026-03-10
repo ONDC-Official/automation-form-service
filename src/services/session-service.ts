@@ -2,6 +2,32 @@
 import { SessionService } from './mock-session-service';
 import logger from '@ondc/automation-logger';
 
+/**
+ * Saves form data to a dedicated Redis key `form_data_{transaction_id}`.
+ * This key is NEVER overwritten by the mock service's HTML_FORM handler
+ * or saveDataForConfig, so it survives the race condition.
+ */
+export const saveFormDataSeparately = async (
+  formUrl: string,
+  formData: Record<string, any>,
+  transaction_id: string
+): Promise<void> => {
+  try {
+    const key = `form_data_${transaction_id}`;
+    const existing = await SessionService.getSessionData(key);
+    const merged = {
+      ...(existing || {}),
+      [formUrl]: formData,
+    };
+    await SessionService.updateSessionData(key, merged);
+    logger.info(`[form-service] Saved form_data to dedicated key: ${key}`, { formUrl, fields: Object.keys(formData) });
+    console.log(`[form-service] Dedicated form_data key ${key} saved with fields:`, Object.keys(formData));
+  } catch (error) {
+    logger.error('Error saving form data separately:', error);
+    throw error;
+  }
+};
+
 export const updateSession = async (
   formUrl: string,
   currentFormData: Record<string, any>,
