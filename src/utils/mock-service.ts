@@ -13,6 +13,7 @@ export async function callMockService(domain: any, submissionData: any, submissi
     },
     json_path_changes: {},
   };
+  logger.info("mockSubmitData : ", mockSubmitData);
   console.log('Calling mock service with data:', mockSubmitData, 'to URL:', submissionUrl);
   const result = await axios.post(submissionUrl, mockSubmitData);
   console.log(result);
