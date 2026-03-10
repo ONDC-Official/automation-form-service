@@ -89,7 +89,7 @@ export const submitForm = async (req: Request, res: Response) => {
     // Only for dynamic forms: update main session and show success page
     if (formConfig.type === 'dynamic') {
       // Call mock service FIRST so idType is stored before frontend detects submission
-      logger.info("++++++ Static form executed ++++++");
+      logger.info("++++++ Dynamic form executed ++++++");
       await callMockService(domain, submissionData, submission_id, formData);
 
       // Re-save full form data AFTER callMockService to prevent mock framework from
