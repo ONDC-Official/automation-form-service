@@ -13,7 +13,8 @@ export const updateSession = async (
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
-
+    console.log("form_data", JSON.stringify(form_data))
+    console.log("sessionData", JSON.stringify(sessionData))
     if (!sessionData) {
       SessionService.updateSessionData(transaction_id, {
         form_data,
