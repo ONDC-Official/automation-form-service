@@ -209,6 +209,26 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "claim_form"
+        url: "claim_form"
+        path: "FIS13/health/claim_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "renew_form"
+        url: "renew_form"
+        path: "FIS13/health/renew_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+      - name: "claim_form_motor"
+        url: "claim_form_motor"
+        path: "FIS13/motor/claim_form_motor"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+    
+
   - name: 'FIS14'
     version: '2.1.0'
     forms:
