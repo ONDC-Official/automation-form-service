@@ -25,7 +25,7 @@ export const getForm = async (req: Request, res: Response) => {
 
   // For dynamic forms without 'direct' flag, return a URL that user can open in new tab
   if (formConfig.type === 'dynamic' && !direct) {
-    const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}&direct=true`;
+    const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}`;
 
     return res.json({
       success: true,
