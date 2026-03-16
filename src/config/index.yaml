@@ -77,6 +77,12 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "credit_card_information_form"
+        url: "credit_card_information_form"
+        path: "FIS12/credit_card_information_form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
   - name: 'FIS12'
     version: '2.2.1'
     forms:
