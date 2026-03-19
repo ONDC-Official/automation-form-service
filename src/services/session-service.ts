@@ -1,5 +1,32 @@
 
 import { SessionService } from './mock-session-service';
+import logger from '@ondc/automation-logger';
+
+/**
+ * Saves form data to a dedicated Redis key `form_data_{transaction_id}`.
+ * This key is NEVER overwritten by the mock service's HTML_FORM handler
+ * or saveDataForConfig, so it survives the race condition.
+ */
+export const saveFormDataSeparately = async (
+  formUrl: string,
+  formData: Record<string, any>,
+  transaction_id: string
+): Promise<void> => {
+  try {
+    const key = `form_data_${transaction_id}`;
+    const existing = await SessionService.getSessionData(key);
+    const merged = {
+      ...(existing || {}),
+      [formUrl]: formData,
+    };
+    await SessionService.updateSessionData(key, merged);
+    logger.info(`[form-service] Saved form_data to dedicated key: ${key}`, { formUrl, fields: Object.keys(formData) });
+    console.log(`[form-service] Dedicated form_data key ${key} saved with fields:`, Object.keys(formData));
+  } catch (error) {
+    logger.error('Error saving form data separately:', error);
+    throw error;
+  }
+};
 
 export const updateSession = async (
   formUrl: string,
@@ -8,12 +35,12 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(transaction_id);
-
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
-
+    console.log("form_data", JSON.stringify(form_data))
+    console.log("sessionData", JSON.stringify(sessionData))
     if (!sessionData) {
       SessionService.updateSessionData(transaction_id, {
         form_data,
@@ -23,6 +50,11 @@ export const updateSession = async (
 
       await SessionService.updateSessionData(transaction_id, sessionData);
     }
+    //get sessionData after update
+    const updatedSessionData = await SessionService.getSessionData(transaction_id);
+    console.log("updatedSessionData", JSON.stringify(updatedSessionData))
+    console.log("updatedSessionDataFormData", JSON.stringify(updatedSessionData.form_data))
+
   } catch (error) {
     console.error('Error updating session:', error);
     throw error;
@@ -30,7 +62,7 @@ export const updateSession = async (
 };
 
 export const updateMainSessionWithFormSubmission = async (
-session_id: string, transaction_id: string, submission_id: string, formUrl?: string): Promise<void> => {
+  session_id: string, transaction_id: string, submission_id: string, formUrl?: string, idType?: string): Promise<void> => {
   try {
     // Create unique key using transactionId and formUrl to distinguish multiple forms in same transaction
     const formKey = formUrl ? `${transaction_id}_${formUrl}` : transaction_id;
@@ -61,7 +93,8 @@ session_id: string, transaction_id: string, submission_id: string, formUrl?: str
       submitted: true,
       submission_id: submission_id,
       timestamp: new Date().toISOString(),
-      formUrl: formUrl || ''
+      formUrl: formUrl || '',
+      ...(idType && { idType }),
     };
 
     console.log(`About to save formSubmissions:`, JSON.stringify(sessionData.formSubmissions, null, 2));

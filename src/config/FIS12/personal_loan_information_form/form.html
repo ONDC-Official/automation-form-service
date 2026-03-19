@@ -4,75 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Account Details</title>
-</head>
-
-<body>
-  <form id=personal_loan_information_form" method="POST" action="<%= actionUrl %>">
-    <label for="panName">Name as Per PAN</label>
-    <input type="text" id="panName" name="panName" required />
-
-    <label for="personalemail">Personal Email</label>
-    <input type="email" id="personalemail" name="personalemail" />
-
-    <label for="officialemail">Official Email</label>
-    <input type="email" id="officialEmail" name="officialemail" />
-
-    <label for="dob">Date of Birth</label>
-    <input type="date" id="dob" name="dob" required />
-
-    <label for="gender">Gender</label>
-    <select name="gender" id="gender" required>
-      <option value="">Select Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="transgender">Transgender</option>
-    </select>
-
-    <label for="pan">PAN</label>
-    <input type="text" id="pan" name="pan" required />
-
-    <label for="contactNumber">Contact Number</label>
-    <input type="tel" id="contactNumber" name="contactNumber" required />
-
-    
-
-    <input type="hidden" id="formId" name="formId" value="FO4" />
-    <input type="submit" value="Submit" />
-
-  </form>
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Details</title>
+  <title>Personal Loan Information</title>
 </head>
 
 <body>
   <form id="personal_loan_information_form" method="POST" action="<%= actionUrl %>">
+    
     <label for="panName">Name as Per PAN</label>
     <input type="text" id="panName" name="panName" required />
 
@@ -94,10 +31,12 @@
     </select>
 
     <label for="pan">PAN</label>
-    <input type="text" id="pan" name="pan" required />
+    <input type="text" id="pan" name="pan" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+      title="PAN must be in format: ABCDE1234F" maxlength="10" placeholder="ABCDE1234F" />
 
     <label for="contactNumber">Contact Number</label>
-    <input type="tel" id="contactNumber" name="contactNumber" required />
+    <input type="tel" id="contactNumber" name="contactNumber" required pattern="[6-9][0-9]{9}"
+      title="Contact number must be 10 digits starting with 6, 7, 8, or 9" maxlength="10" placeholder="9876543210" />
 
     <label for="employmentType">Employment Type</label>
     <select name="employmentType" id="employmentType" required>
@@ -128,7 +67,8 @@
     <input type="text" id="state" name="state" />
 
     <label for="pincode">Pin Code</label>
-    <input type="text" id="pincode" name="pincode" />
+    <input type="text" id="pincode" name="pincode" pattern="[1-9][0-9]{5}"
+      title="Pin code must be 6 digits and cannot start with 0" maxlength="6" placeholder="123456" />
 
     <label for="accNo">Bank Account Number</label>
     <input type="text" id="accNo" name="accNo" />
@@ -152,12 +92,10 @@
     <label for="bureauConsent">Bureau Consent</label>
     <input type="checkbox" id="bureauConsent" name="bureauConsent" />
 
-    <!-- <label for="derivedData">Derived Data</label>
-    <input type="file" id="derivedData" name="derivedData" accept=".json" /> -->
-
     <input type="hidden" id="formId" name="formId" value="FO1" />
     <input type="submit" value="Submit" />
+
   </form>
 </body>
 
-</html> -->
+</html>

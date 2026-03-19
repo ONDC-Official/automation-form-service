@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy Renewal</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #2d3748;
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #2d3748;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .required-indicator {
+      color: #e53e3e;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h1>Policy Renewal</h1>
+    <p class="subtitle">Renew your health insurance policy</p>
+
+    <form id="renew_form" method="POST" action="<%= actionUrl %>">
+      <input type="hidden" name="formId" id="formId" value="renew_insurance_form">
+
+      <div class="form-group">
+        <label>
+          Renewal Option
+          <span class="required-indicator">*</span>
+        </label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="idType" value="RENEW_SAME_PLAN" required>
+            Renew with Same Plan
+          </label>
+          <label>
+            <input type="radio" name="idType" value="RENEW_WITH_UPGRADE">
+            Renew with Upgrade
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          Renewal Duration
+          <span class="required-indicator">*</span>
+        </label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="renewalDuration" value="1_YEAR" required>
+            1 Year
+          </label>
+          <label>
+            <input type="radio" name="renewalDuration" value="2_YEARS">
+            2 Years
+          </label>
+          <label>
+            <input type="radio" name="renewalDuration" value="3_YEARS">
+            3 Years
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Renew Policy</button>
+    </form>
+  </div>
+</body>
+
+</html>

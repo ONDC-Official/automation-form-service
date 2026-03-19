@@ -1,7 +1,7 @@
 import axios from 'axios';
 import logger from '@ondc/automation-logger';
 import { RedisService } from 'ondc-automation-cache-lib';
-export async function callMockService(domain: any, submissionData: any, submission_id: string) {
+export async function callMockService(domain: any, submissionData: any, submission_id: string, formData?: Record<string, any>) {
   // const submissionUrl = `${process.env.MOCK_SERVICE_URL?.replace("domain",domain)}/flow/new`
   const submissionUrl = await buildMockBaseURL('flows/proceed', submissionData.session_id);
 
@@ -9,9 +9,13 @@ export async function callMockService(domain: any, submissionData: any, submissi
     ...submissionData,
     inputs: {
       submission_id: submission_id,
+      ...(formData?.idType && { idType: formData?.idType }),
+      ...formData,
     },
     json_path_changes: {},
   };
+  logger.info("formData : ", formData);
+  logger.info("mockSubmitData : ", mockSubmitData);
   console.log('Calling mock service with data:', mockSubmitData, 'to URL:', submissionUrl);
   const result = await axios.post(submissionUrl, mockSubmitData);
   console.log(result);
