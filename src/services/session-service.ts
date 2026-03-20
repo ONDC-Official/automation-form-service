@@ -39,8 +39,6 @@ export const updateSession = async (
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
-    console.log("form_data", JSON.stringify(form_data))
-    console.log("sessionData", JSON.stringify(sessionData))
     if (!sessionData) {
       SessionService.updateSessionData(transaction_id, {
         form_data,
@@ -50,10 +48,6 @@ export const updateSession = async (
 
       await SessionService.updateSessionData(transaction_id, sessionData);
     }
-    //get sessionData after update
-    const updatedSessionData = await SessionService.getSessionData(transaction_id);
-    console.log("updatedSessionData", JSON.stringify(updatedSessionData))
-    console.log("updatedSessionDataFormData", JSON.stringify(updatedSessionData.form_data))
 
   } catch (error) {
     console.error('Error updating session:', error);
