@@ -25,7 +25,7 @@ export const getForm = async (req: Request, res: Response) => {
 
   // For dynamic forms without 'direct' flag, return a URL that user can open in new tab
   if (formConfig.type === 'dynamic' && !direct) {
-    const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}&direct=true`;
+    const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}`;
 
     return res.json({
       success: true,
@@ -94,8 +94,8 @@ export const submitForm = async (req: Request, res: Response) => {
 
       // Re-save full form data AFTER callMockService to prevent mock framework from
       // overwriting the submitted fields (e.g. contactNumber) with only {submission_id, idType}
-      // await updateSession(formConfig.url, formData, submissionData.transaction_id);
-      // await updateSession(formConfig.url, formData, submissionData.session_id);
+      await updateSession(formConfig.url, formData, submissionData.transaction_id);
+      await updateSession(formConfig.url, formData, submissionData.session_id);
       logger.info("Form data re-saved after callMockService (dynamic form)", { formUrl: formConfig.url });
 
       // Update main session AFTER mock service call - this triggers frontend polling detection
