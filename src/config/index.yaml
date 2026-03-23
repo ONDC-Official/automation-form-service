@@ -89,6 +89,12 @@ domains:
         type: "static"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "multiple_bureau_information_form"
+        url: "multiple_bureau_information_form"
+        path: "FIS12/multiple_bureau_information_form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
   - name: 'FIS12'
     version: '2.2.1'
     forms:
