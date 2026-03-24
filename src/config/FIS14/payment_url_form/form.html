@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Status</title>
+</head>
+
+<body>
+  <form id="payment_url_form" method="POST" action="<%= actionUrl %>">
+    <label for="paymentStatus">Payment Status</label>
+    <select name="paymentStatus" id="paymentStatus">
+      <option value="paid">Paid</option>
+      <option value="not_paid">Not Paid</option>
+
+    </select>
+    <input type="hidden" id="formId" name="formId" value="FO1">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+
+</html>
