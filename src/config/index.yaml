@@ -259,21 +259,30 @@ domains:
       - name: "payment_url_form"
         url: "payment_url_form"
         path: "FIS14/payment_url_form"
-        type: "static"
+        type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"  
 
       - name: "verification_status"
         url: "verification_status"
-        path: "FIS12/verification_status"
+        path: "FIS14/verification_status"
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
         
       - name: "E_sign_verification_status"
         url: "E_sign_verification_status"
-        path: "FIS12/purchase_finance/E_sign_verification_status"
+        path: "FIS14/E_sign_verification_status"
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+
+      - name: "Ekyc_details_form"
+        url: "Ekyc_details_form"
+        path: "FIS14/Ekyc_details_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+
+        
 
