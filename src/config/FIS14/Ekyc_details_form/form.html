@@ -37,7 +37,6 @@
         opacity: 0;
         transform: translateY(20px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -168,22 +167,22 @@
   <div class="form-container">
     <div class="status-icon">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
     </div>
-    <h1>Payment URL Status</h1>
-    <p class="subtitle">Please select the current payment status</p>
+    <h1>Verification Status</h1>
+    <p class="subtitle">Please select the current verification status</p>
 
-    <form id="payment_url_form" method="POST" action="<%= actionUrl %>">
+    <form id="Ekyc_details_form" method="POST" action="<%= actionUrl %>">
       <div class="form-group">
         <label for="idType">
-          Payment Status
+          Verification Status
           <span class="required-indicator">*</span>
         </label>
         <select id="idType" name="idType" required>
-          <option value="PAID">PAID</option>
-          <option value="NOT-PAID">NOT-PAID</option>
+          <option value="">-- Select Status --</option>
+          <option value="COMPLETED">COMPLETED</option>
+          <option value="REJECTED">REJECTED</option>
         </select>
       </div>
 
