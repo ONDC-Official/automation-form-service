@@ -256,12 +256,20 @@ domains:
         type: "static"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+
       - name: "payment_url_form"
         url: "payment_url_form"
         path: "FIS14/payment_url_form"
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"  
+      
+      - name: "retry_payment_url_form"
+        url: "retry_payment_url_form"
+        path: "FIS14/retry_payment_url_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success" 
 
       - name: "verification_status"
         url: "verification_status"
