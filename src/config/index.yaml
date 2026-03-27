@@ -292,5 +292,9 @@ domains:
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
 
-        
-
+      - name: "kyc_details_form"
+        url: "kyc_details_form"
+        path: "FIS14/kyc_details_form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
