@@ -84,7 +84,7 @@
     </select>
 
     <label for="derivedData">Derived Data (JSON file)</label>
-    <input type="file" id="derivedData" name="derivedData" accept=".json" />
+    <input type="file" id="derivedData" accept=".json" />
     <small id="derivedDataStatus"></small>
 
     <label for="bureauConsent">Bureau Consent</label>
@@ -116,10 +116,6 @@
       };
       reader.readAsText(file);
     });
-    document.getElementById('personal_loan_information_form')
-      .addEventListener('submit', function () {
-        derivedDataInput.disabled = true;
-      });
   </script>
 
 </body>
