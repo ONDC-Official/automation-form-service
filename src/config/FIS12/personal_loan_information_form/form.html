@@ -9,7 +9,7 @@
 
 <body>
   <form id="personal_loan_information_form" method="POST" action="<%= actionUrl %>">
-    
+
     <label for="panName">Name as Per PAN</label>
     <input type="text" id="panName" name="panName" required />
 
@@ -83,8 +83,9 @@
       <option value="other">Other Consumption Purposes</option>
     </select>
 
-    <label for="derivedData">Derived Data</label>
-    <input name="derivedData" name="derivedData" type="file" accept=".json" />
+    <label for="derivedData">Derived Data (JSON file)</label>
+    <input type="file" id="derivedData" name="derivedData" accept=".json" />
+    <small id="derivedDataStatus"></small>
 
     <label for="bureauConsent">Bureau Consent</label>
     <input type="checkbox" id="bureauConsent" name="bureauConsent" />
@@ -93,6 +94,34 @@
     <input type="submit" value="Submit" />
 
   </form>
+
+  <script>
+    var derivedDataInput = document.getElementById('derivedData');
+    var statusEl = document.getElementById('derivedDataStatus');
+
+    derivedDataInput.addEventListener('change', function () {
+      var file = this.files && this.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          var content = e.target.result;
+          localStorage.setItem('derivedData', content);
+          statusEl.textContent = '✓ File stored locally (' + file.name + ')';
+          statusEl.style.color = 'green';
+        } catch (err) {
+          statusEl.textContent = '✗ Failed to read file: ' + err.message;
+          statusEl.style.color = 'red';
+        }
+      };
+      reader.readAsText(file);
+    });
+    document.getElementById('personal_loan_information_form')
+      .addEventListener('submit', function () {
+        derivedDataInput.disabled = true;
+      });
+  </script>
+
 </body>
 
 </html>
