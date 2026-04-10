@@ -83,10 +83,8 @@
       <option value="other">Other Consumption Purposes</option>
     </select>
 
-    <label for="derivedData">Derived Data (JSON file)</label>
-    <input type="file" id="derivedData" accept=".json" />
-    <input type="hidden" id="derivedDataContent" name="derivedDataContent" />
-    <small id="derivedDataStatus"></small>
+    <label for="derivedData">Derived Data</label>
+    <input name="derivedData" id="derivedData" type="file" accept=".json" />
 
     <label for="bureauConsent">Bureau Consent</label>
     <input type="checkbox" id="bureauConsent" name="bureauConsent" />
@@ -95,33 +93,6 @@
     <input type="submit" value="Submit" />
 
   </form>
-
-  <script>
-    var derivedDataInput = document.getElementById('derivedData');
-    var statusEl = document.getElementById('derivedDataStatus');
-
-    derivedDataInput.addEventListener('change', function () {
-      var file = this.files && this.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        try {
-          var content = e.target.result;
-          // Store in localStorage for frontend access
-          localStorage.setItem('derivedData', content);
-          // Also relay into the hidden input so it's submitted with the form
-          document.getElementById('derivedDataContent').value = content;
-          statusEl.textContent = '\u2713 File ready (' + file.name + ')';
-          statusEl.style.color = 'green';
-        } catch (err) {
-          statusEl.textContent = '\u2717 Failed to read file: ' + err.message;
-          statusEl.style.color = 'red';
-        }
-      };
-      reader.readAsText(file);
-    });
-  </script>
-
 </body>
 
 </html>
