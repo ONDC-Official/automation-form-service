@@ -85,6 +85,7 @@
 
     <label for="derivedData">Derived Data (JSON file)</label>
     <input type="file" id="derivedData" accept=".json" />
+    <input type="hidden" id="derivedDataContent" name="derivedDataContent" />
     <small id="derivedDataStatus"></small>
 
     <label for="bureauConsent">Bureau Consent</label>
@@ -106,11 +107,14 @@
       reader.onload = function (e) {
         try {
           var content = e.target.result;
+          // Store in localStorage for frontend access
           localStorage.setItem('derivedData', content);
-          statusEl.textContent = '✓ File stored locally (' + file.name + ')';
+          // Also relay into the hidden input so it's submitted with the form
+          document.getElementById('derivedDataContent').value = content;
+          statusEl.textContent = '\u2713 File ready (' + file.name + ')';
           statusEl.style.color = 'green';
         } catch (err) {
-          statusEl.textContent = '✗ Failed to read file: ' + err.message;
+          statusEl.textContent = '\u2717 Failed to read file: ' + err.message;
           statusEl.style.color = 'red';
         }
       };
