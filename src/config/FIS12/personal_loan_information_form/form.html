@@ -8,8 +8,8 @@
 </head>
 
 <body>
-  <form id="personal_loan_information_form" method="POST" action="<%= actionUrl %>">
-    
+  <form id="personal_loan_information_form" method="POST" enctype="multipart/form-data" action="<%= actionUrl %>">
+
     <label for="panName">Name as Per PAN</label>
     <input type="text" id="panName" name="panName" required />
 
@@ -84,7 +84,7 @@
     </select>
 
     <label for="derivedData">Derived Data</label>
-    <input name="derivedData" name="derivedData" type="file" accept=".json" />
+    <input name="derivedData" id="derivedData" type="file" accept=".json" />
 
     <label for="bureauConsent">Bureau Consent</label>
     <input type="checkbox" id="bureauConsent" name="bureauConsent" />
