@@ -23,16 +23,23 @@ export const getForm = async (req: Request, res: Response) => {
   // Get form service configuration for auto-injection
   const formServiceConfig = centralConfigService.getFormServiceConfig();
 
-  // For dynamic forms without 'direct' flag, return a URL that user can open in new tab
+  // For dynamic forms: detect whether this is a browser navigation or a programmatic API call.
+  // - Browser navigation sends Accept: text/html → render the form HTML directly
+  // - API calls (e.g. axios) send Accept: application/json → return JSON { formUrl } for backward compat
   if (formConfig.type === 'dynamic' && !direct) {
-    const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}&direct=true`;
+    const preferHtml = req.accepts(['html', 'json']) === 'html';
 
-    return res.json({
-      success: true,
-      type: 'dynamic',
-      formUrl: formRenderUrl,
-      message: 'Please open this URL to fill the form'
-    });
+    if (!preferHtml) {
+      // Programmatic API call — return JSON with the ?direct=true URL
+      const formRenderUrl = `${formServiceConfig.baseUrl}/forms/${actualFormUrl}?flow_id=${flow_id}&session_id=${session_id}&transaction_id=${transaction_id}&direct=true`;
+      return res.json({
+        success: true,
+        type: 'dynamic',
+        formUrl: formRenderUrl,
+        message: 'Please open this URL to fill the form'
+      });
+    }
+    // Browser navigation: fall through to render HTML directly below
   }
 
   // Render HTML for static forms OR dynamic forms with direct=true
