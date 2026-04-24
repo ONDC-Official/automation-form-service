@@ -203,6 +203,12 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "payment_failure_form"
+        url: "payment_failure_form"
+        path: "FIS13/health/payment_failure_form"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
       - name: "payment_form_motor"
         url: "payment_form_motor"
         path: "FIS13/motor/payment_form_motor"
@@ -227,6 +233,13 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "payment_failure_form_motor"
+        url: "payment_failure_form_motor"
+        path: "FIS13/health/payment_failure_form_motor"
+        type: "dynamic"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+        
     
 
   - name: 'FIS14'

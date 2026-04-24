@@ -263,7 +263,7 @@
             Full Name
             <span class="required-indicator">*</span>
           </label>
-          <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
+          <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" pattern="[A-Za-z\s]{2,100}" maxlength="100" title="Name must contain only letters and spaces (2-100 characters)" required>
         </div>
 
         <div class="two-column">
@@ -299,6 +299,18 @@
             <option>Widowed</option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label for="pep">
+            Politically Exposed Person
+            <span class="required-indicator">*</span>
+          </label>
+          <select id="pep" name="pep" required>
+            <option value="">-- Select --</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
       </div>
 
       <!-- Contact Details -->
@@ -316,7 +328,7 @@
               Mobile Number
               <span class="required-indicator">*</span>
             </label>
-            <input type="tel" id="phone" name="phone" placeholder="9876543210" required>
+            <input type="tel" id="phone" name="phone" placeholder="9876543210" pattern="[6-9][0-9]{9}" maxlength="10" title="Phone number must be 10 digits starting with 6, 7, 8, or 9" required>
           </div>
 
           <div class="form-group">
@@ -370,7 +382,7 @@
             Pincode
             <span class="required-indicator">*</span>
           </label>
-          <input type="text" id="pincode" name="pincode" placeholder="Enter pincode" required>
+          <input type="text" id="pincode" name="pincode" placeholder="Enter pincode" pattern="[1-9][0-9]{5}" maxlength="6" title="Pincode must be 6 digits and cannot start with 0" required>
         </div>
       </div>
 
@@ -410,7 +422,7 @@
             Nominee Name
             <span class="required-indicator">*</span>
           </label>
-          <input type="text" id="nominee_name" name="nominee_name" placeholder="Enter nominee's full name" required>
+          <input type="text" id="nominee_name" name="nominee_name" placeholder="Enter nominee's full name" pattern="[A-Za-z\s]{2,100}" maxlength="100" title="Name must contain only letters and spaces" required>
         </div>
 
         <div class="two-column">

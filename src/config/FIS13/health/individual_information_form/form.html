@@ -10,36 +10,74 @@
 <body>
   <form id="individual_information_form" method="POST" action="<%= actionUrl %>">
 
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" />
+    <label for="firstName">First Name <span style="color:red">*</span></label>
+    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" pattern="[A-Za-z\s]{2,50}" maxlength="50" title="Name must contain only letters and spaces (2-50 characters)" required />
 
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" />
+    <label for="lastName">Last Name <span style="color:red">*</span></label>
+    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" pattern="[A-Za-z\s]{2,50}" maxlength="50" title="Name must contain only letters and spaces (2-50 characters)" required />
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="example@email.com" />
+    <label for="dob">Date of Birth <span style="color:red">*</span></label>
+    <input type="date" id="dob" name="dob" required />
 
-    <label for="phone">Phone</label>
-    <input type="tel" id="phone" name="phone" placeholder="9876543210" />
+    <label for="gender">Gender <span style="color:red">*</span></label>
+    <select name="gender" id="gender" required>
+      <option value="">-- Select --</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
 
-    <label for="PED">PED</label>
-    <select name="PED" id="PED">
+    <label for="PED">PED <span style="color:red">*</span></label>
+    <select name="PED" id="PED" required>
+      <option value="">-- Select --</option>
       <option value="Yes">Yes</option>
       <option value="No">No</option>
     </select>
 
-    <label for="dob">Date of Birth</label>
-    <input type="date" id="dob" name="dob" />
-
-    <label for="gender">Gender</label>
-    <select name="gender" id="gender">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="transgender">Transgender</option>
+    <label for="relation">Relationship with Proposer <span style="color:red">*</span></label>
+    <select name="relation" id="relation" required>
+      <option value="">-- Select --</option>
+      <option value="self">Self</option>
+      <option value="spouse">Spouse</option>
+      <option value="son">Son</option>
+      <option value="daughter">Daughter</option>
+      <option value="father">Father</option>
+      <option value="mother">Mother</option>
     </select>
 
-    <label for="panValue">PAN Number</label>
-    <input type="text" id="panValue" name="panValue" placeholder="ABCDE1234F" />
+    <label for="phone">Phone <span style="color:red">*</span></label>
+    <input type="tel" id="phone" name="phone" placeholder="9876543210" pattern="[6-9][0-9]{9}" maxlength="10" title="Phone number must be 10 digits starting with 6, 7, 8, or 9" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="example@email.com" />
+
+    <label for="amount">Coverage Amount <span style="color:red">*</span></label>
+    <input type="number" id="amount" name="amount" placeholder="Enter coverage amount" min="1" required />
+
+    <label for="planType">Plan Type <span style="color:red">*</span></label>
+    <select name="planType" id="planType" required>
+      <option value="">-- Select --</option>
+      <option value="individual">Individual</option>
+      <option value="family_floater">Family Floater</option>
+    </select>
+
+    <label for="panIndia">Pan India Cover <span style="color:red">*</span></label>
+    <select name="panIndia" id="panIndia" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="height">Height (cm) <span style="color:red">*</span></label>
+    <input type="number" id="height" name="height" placeholder="Enter height in cm" min="1" max="300" required />
+
+    <label for="weight">Weight (kg) <span style="color:red">*</span></label>
+    <input type="number" id="weight" name="weight" placeholder="Enter weight in kg" min="1" max="500" required />
+
+    <label for="pincode">Pincode</label>
+    <input type="text" id="pincode" name="pincode" placeholder="123456" pattern="[1-9][0-9]{5}" maxlength="6" title="Pincode must be 6 digits and cannot start with 0" />
+
+    <label for="tenure">Tenure (years)</label>
+    <input type="number" id="tenure" name="tenure" placeholder="Policy tenure (default 1)" min="1" value="1" />
 
     <label>PED Details</label>
 
@@ -55,20 +93,11 @@
     <label for="other">Other health issues</label>
     <input type="checkbox" id="other" name="other" />
 
-    <label for="weight">Weight</label>
-    <input type="text" id="weight" name="weight" placeholder="Enter weight in kg" />
+    <label for="panValue">PAN Number</label>
+    <input type="text" id="panValue" name="panValue" placeholder="ABCDE1234F" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" maxlength="10" title="PAN must be in format: ABCDE1234F" />
 
-    <label for="height">Height</label>
-    <input type="text" id="height" name="height" placeholder="Enter height in cm" />
-
-    <label for="amount">Coverage Amount</label>
-    <input type="number" id="amount" name="amount" placeholder="Enter coverage amount" />
-
-    <label for="panIndia">Pan India Cover</label>
-    <input type="checkbox" id="panIndia" name="panIndia" />
-
-    <label for="pincode">Pincode</label>
-    <input type="text" id="pincode" name="pincode" placeholder="123456" />
+    <label for="dobAsPerPan">DoB as per PAN</label>
+    <input type="date" id="dobAsPerPan" name="dobAsPerPan" />
 
     <input type="hidden" id="formId" name="formId" value="F01">
 
