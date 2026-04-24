@@ -244,6 +244,8 @@
             id="registrationNumber"
             name="registrationNumber"
             placeholder="e.g., MH01AB1234"
+            pattern="[A-Z]{2}[0-9]{1,2}\s?[A-Z]{0,3}\s?[0-9]{1,4}"
+            title="Enter a valid registration number (e.g., MH01AB1234)"
             required
           />
           <p class="helper-text">Enter your vehicle registration number</p>
@@ -291,22 +293,30 @@
 
         <div class="two-column">
           <div class="form-group">
-            <label for="previousPolicyNumber">Previous Policy Number</label>
+            <label for="previousPolicyNumber">
+              Previous Policy Number
+              <span class="required-indicator">*</span>
+            </label>
             <input
               type="text"
               id="previousPolicyNumber"
               name="previousPolicyNumber"
               placeholder="Enter policy number"
+              required
             />
           </div>
 
           <div class="form-group">
-            <label for="previousPolicyIssuer">Previous Policy Issuer</label>
+            <label for="previousPolicyIssuer">
+              Previous Policy Issuer
+              <span class="required-indicator">*</span>
+            </label>
             <input
               type="text"
               id="previousPolicyIssuer"
               name="previousPolicyIssuer"
               placeholder="Enter issuer name"
+              required
             />
           </div>
         </div>
@@ -353,6 +363,9 @@
             id="nomineeName"
             name="nomineeName"
             placeholder="Enter nominee's full name"
+            pattern="[A-Za-z\s]{2,100}"
+            maxlength="100"
+            title="Name must contain only letters and spaces"
             required
           />
         </div>

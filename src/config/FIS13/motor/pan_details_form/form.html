@@ -17,7 +17,7 @@
 
       <p>
         <label for="panValue">PAN Number:</label><br>
-        <input type="text" id="panValue" name="panValue">
+        <input type="text" id="panValue" name="panValue" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" maxlength="10" title="PAN must be in format: ABCDE1234F" placeholder="ABCDE1234F">
       </p>
 
       <input type="hidden" id="formId" name="formId" value="F04">
