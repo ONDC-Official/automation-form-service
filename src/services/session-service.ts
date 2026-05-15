@@ -82,12 +82,12 @@ export const updateSession = async (
       await SessionService.updateSessionData(transaction_id, sessionData);
     }
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
-    // // Fire callback to subscriber after successful session update
-    // if (sessionData?.subscriberUrl) {
-    //   await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id);
-    // } else {
-    //   logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
-    // }
+    // Fire callback to subscriber after successful session update
+    if (sessionData?.subscriberUrl) {
+      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id);
+    } else {
+      logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
+    }
 
   } catch (error) {
     console.error('Error updating session:', error);
