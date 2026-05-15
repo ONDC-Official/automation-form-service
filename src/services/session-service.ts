@@ -10,13 +10,15 @@ import logger from '@ondc/automation-logger';
  */
 const sendCallbackToSubscriber = async (
   subscriberUrl: string,
-  transaction_id: string
+  transaction_id: string,
+  formUrl: string
 ): Promise<void> => {
   const callbackUrl = `${subscriberUrl}/callback`;
   const payload = {
     success: "true",
     message: "Form submitted successfully",
     transaction_id,
+    form_id:formUrl
   };
   try {
     logger.info(`[form-service] Firing callback to subscriber`, { callbackUrl, transaction_id });
@@ -85,7 +87,7 @@ export const updateSession = async (
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     // Fire callback to subscriber after successful session update
     if (transaction_id && sessionData?.subscriberUrl) {
-      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id);
+      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, formUrl);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
     }
