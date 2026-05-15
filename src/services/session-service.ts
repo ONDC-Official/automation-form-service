@@ -35,7 +35,7 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(transaction_id);
-    logger.info("session updated sessiondata", {sessionData});
+    logger.info("session updated sessiondata", {subscriberUrl: sessionData?.subscriberUrl});
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
