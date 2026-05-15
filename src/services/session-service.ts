@@ -1,6 +1,39 @@
 
+import axios from 'axios';
 import { SessionService } from './mock-session-service';
 import logger from '@ondc/automation-logger';
+
+/**
+ * Fires an HTTP POST callback to the subscriber URL after a successful form submission.
+ * This is fire-and-forget — callback failures are logged but never thrown,
+ * so they do NOT break the form submission flow.
+ */
+const sendCallbackToSubscriber = async (
+  subscriberUrl: string,
+  transaction_id: string
+): Promise<void> => {
+  const callbackUrl = `${subscriberUrl}/callback`;
+  const payload = {
+    success: "true",
+    message: "Form submitted successfully",
+    transaction_id,
+  };
+  try {
+    logger.info(`[form-service] Firing callback to subscriber`, { callbackUrl, transaction_id });
+    const response = await axios.post(callbackUrl, payload, {
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 5000,
+    });
+    logger.info(`[form-service] Callback response received`, { status: response.status, callbackUrl });
+  } catch (err: any) {
+    // Non-fatal: log and continue — form data is already persisted in Redis
+    logger.error(`[form-service] Callback to subscriber failed (non-fatal)`, {
+      callbackUrl,
+      transaction_id,
+      error: err?.message,
+    });
+  }
+};
 
 /**
  * Saves form data to a dedicated Redis key `form_data_{transaction_id}`.
@@ -35,20 +68,26 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(transaction_id);
-    logger.info("session updated sessiondata", {subscriberUrl: sessionData?.subscriberUrl});
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
     if (!sessionData) {
-      SessionService.updateSessionData(transaction_id, {
+      await SessionService.updateSessionData(transaction_id, {
         form_data,
       });
     } else {
       sessionData.form_data = form_data;
-
       await SessionService.updateSessionData(transaction_id, sessionData);
     }
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
+    // // Fire callback to subscriber after successful session update
+    // if (sessionData?.subscriberUrl) {
+    //   await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id);
+    // } else {
+    //   logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
+    // }
 
   } catch (error) {
     console.error('Error updating session:', error);
