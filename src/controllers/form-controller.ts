@@ -97,7 +97,7 @@ export const submitForm = async (req: Request, res: Response) => {
     if (formConfig.type === 'dynamic') {
 
       var sessionData = await SessionService.getSessionData(submissionData.transaction_id);
-      logger.info("session data check for dynamic form +++ after", sessionData);
+      logger.info("sessiofodynamiformafter", sessionData);
       
       // Call mock service FIRST so idType is stored before frontend detects submission
       logger.info("++++++ Dynamic form executed ++++++");
@@ -112,7 +112,7 @@ export const submitForm = async (req: Request, res: Response) => {
       // Update main session AFTER mock service call - this triggers frontend polling detection
       await updateMainSessionWithFormSubmission(submissionData.session_id as string, submissionData.transaction_id as string, submission_id, formUrl, formData?.idType);
       sessionData = await SessionService.getSessionData(submissionData.transaction_id);
-      logger.info("session data check for dynamic form +++ before", sessionData);
+      logger.info("sessionghdfsjygdshdljs", sessionData);
 
       // Return a nice success page for dynamic forms
       const successHtml = `
