@@ -64,26 +64,27 @@ export const saveFormDataSeparately = async (
 export const updateSession = async (
   formUrl: string,
   currentFormData: Record<string, any>,
-  transaction_id: string
+  session_id: string,
+  transaction_id?: string
 ): Promise<void> => {
   try {
-    const sessionData = await SessionService.getSessionData(transaction_id);
+    const sessionData = await SessionService.getSessionData(session_id);
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
     if (!sessionData) {
-      await SessionService.updateSessionData(transaction_id, {
+      await SessionService.updateSessionData(session_id, {
         form_data,
       });
     } else {
       sessionData.form_data = form_data;
-      await SessionService.updateSessionData(transaction_id, sessionData);
+      await SessionService.updateSessionData(session_id, sessionData);
     }
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     // Fire callback to subscriber after successful session update
-    if (sessionData?.subscriberUrl) {
+    if (transaction_id && sessionData?.subscriberUrl) {
       await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
