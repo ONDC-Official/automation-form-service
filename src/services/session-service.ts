@@ -72,7 +72,7 @@ export const updateSession = async (
   try {
     const sessionData = await SessionService.getSessionData(session_id);
     console.log(formUrl, 'formurl__________________')
-    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id || "no-form-id" });
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
@@ -85,7 +85,7 @@ export const updateSession = async (
       sessionData.form_data = form_data;
       await SessionService.updateSessionData(session_id, sessionData);
     }
-    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id });
+    logger.info("before calling callback ", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id });
     // Fire callback to subscriber after successful session update
     const form_id = sessionData?.form_id || "no-form-id";
     if (transaction_id && sessionData?.subscriberUrl) {
