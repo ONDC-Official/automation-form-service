@@ -11,17 +11,17 @@ import logger from '@ondc/automation-logger';
 const sendCallbackToSubscriber = async (
   subscriberUrl: string,
   transaction_id: string,
-  formUrl: string
+  form_id: any
 ): Promise<void> => {
   const callbackUrl = `${subscriberUrl}/callback`;
   const payload = {
     success: "true",
     message: "Form submitted successfully",
     transaction_id,
-    form_id:formUrl
+    form_id
   };
   try {
-    logger.info(`[form-service] Firing callback to subscriber`, { callbackUrl, transaction_id, payload });
+    logger.info(`[form-service] Firing callback to subscriber`, { callbackUrl, transaction_id, payload, form_id });
     const response = await axios.post(callbackUrl, payload, {
       headers: { 'Content-Type': 'application/json' },
       timeout: 5000,
@@ -71,7 +71,7 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(session_id);
-    console.log(sessionData)
+    console.log(formUrl, 'formurl__________________')
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     const form_data = {
       ...sessionData?.form_data,
