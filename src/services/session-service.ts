@@ -67,7 +67,7 @@ export const updateSession = async (
   formUrl: string,
   currentFormData: Record<string, any>,
   session_id: string,
-  transaction_id?: string
+  transaction_id: string
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(session_id);
