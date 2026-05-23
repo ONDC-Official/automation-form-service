@@ -71,6 +71,7 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(session_id);
+    formUrl = sessionData?.form_id;
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     const form_data = {
       ...sessionData?.form_data,
