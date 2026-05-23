@@ -97,13 +97,13 @@ export const submitForm = async (req: Request, res: Response) => {
     if (formConfig.type === 'dynamic') {
 
       // Call mock service FIRST so idType is stored before frontend detects submission
-      logger.info("++++++ Dynamic form executed ++++++");
+      logger.info("++++++ Dynamic form executed ++++++", { session_id: submissionData?.session_id, transaction_id: submissionData?.transaction_id });
       await callMockService(domain, submissionData, submission_id, formData);
 
       // Re-save full form data AFTER callMockService to prevent mock framework from
       // overwriting the submitted fields (e.g. contactNumber) with only {submission_id, idType}
       // await updateSession(formConfig.url, formData, submissionData.transaction_id);
-      await updateSession(formConfig.url, formData, submissionData.session_id,submissionData.transaction_id);
+      await updateSession(formConfig.url, formData, submissionData?.session_id, submissionData?.transaction_id);
       logger.info("Form data re-saved after callMockService (dynamic form)", { formUrl: formConfig.url });
 
       // Update main session AFTER mock service call - this triggers frontend polling detection
