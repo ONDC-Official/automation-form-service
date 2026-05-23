@@ -70,28 +70,44 @@ export const updateSession = async (
   transaction_id?: any
 ): Promise<void> => {
   try {
-    const sessionData = await SessionService.getSessionData(session_id);
+    // Fetch both keys in parallel to eliminate the race window where
+    // callMockService can write between two sequential reads
+    const [sessionData, transactionData] = await Promise.all([
+      SessionService.getSessionData(session_id),
+      transaction_id ? SessionService.getSessionData(transaction_id) : Promise.resolve(null),
+    ]);
+
     const subscriberUrl = sessionData?.subscriberUrl;
-    const transactionData = await SessionService.getSessionData(transaction_id);
-    const form_id = transactionData?.form_id
-    console.log(formUrl, 'formurl__________________')
-    logger.info("session updated sessiondata", { transaction_id:session_id, subscriberUrl: subscriberUrl, form_id: form_id || "no-form-id", sessionData, transactionData });
+    // form_id lives on transactionData; fall back to sessionData if not present
+    const form_id = transactionData?.form_id ?? sessionData?.form_id;
+
+    console.log(formUrl, 'formurl__________________');
+    logger.info("session updated sessiondata", {
+      session_id,
+      transaction_id,
+      subscriberUrl,
+      form_id: form_id || "no-form-id",
+      sessionData,
+      transactionData,
+    });
+
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
     };
+
     if (!sessionData) {
-      await SessionService.updateSessionData(session_id, {
-        form_data,
-      });
+      await SessionService.updateSessionData(session_id, { form_data });
     } else {
       sessionData.form_data = form_data;
       await SessionService.updateSessionData(session_id, sessionData);
     }
-    logger.info("before calling callback ", { transaction_id, subscriberUrl: subscriberUrl, form_id: sessionData?.form_id });
+
+    logger.info("before calling callback", { transaction_id, subscriberUrl, form_id });
+
     // Fire callback to subscriber after successful session update
     if (transaction_id && subscriberUrl) {
-      await sendCallbackToSubscriber(sessionData.bap_uri, transaction_id, sessionData?.form_id);
+      await sendCallbackToSubscriber(subscriberUrl, transaction_id, form_id);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
     }

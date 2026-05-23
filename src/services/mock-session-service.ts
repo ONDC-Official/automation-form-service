@@ -5,15 +5,10 @@ RedisService.useDb(0);
 export class SessionService {
   static async getSessionData(sessionId: string): Promise<any | null> {
     try {
-      const exists = await RedisService.keyExists(sessionId);
-      if (!exists) {
-        logger.error(`Session not found for transaction ID: ${sessionId}`);
-        return null;
-      }
-
+      // Single atomic GET — avoids the TOCTOU race between keyExists + getKey
       const rawData = await RedisService.getKey(sessionId);
       if (!rawData) {
-        logger.error(`No data found for transaction ID: ${sessionId}`);
+        logger.error(`No data found for ID: ${sessionId}`);
         return null;
       }
 
