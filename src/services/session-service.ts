@@ -85,7 +85,7 @@ export const updateSession = async (
       sessionData.form_data = form_data;
       await SessionService.updateSessionData(session_id, sessionData);
     }
-    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, formurl, sessionData?.form_id });
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, formUrl, form_id: sessionData?.form_id });
     // Fire callback to subscriber after successful session update
     if (transaction_id && sessionData?.subscriberUrl) {
       await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, formUrl);
