@@ -71,7 +71,7 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(session_id);
-    formUrl = sessionData?.form_id;
+    console.log(sessionData)
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl });
     const form_data = {
       ...sessionData?.form_data,
@@ -85,10 +85,10 @@ export const updateSession = async (
       sessionData.form_data = form_data;
       await SessionService.updateSessionData(session_id, sessionData);
     }
-    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, formUrl, form_id: sessionData?.form_id });
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id });
     // Fire callback to subscriber after successful session update
     if (transaction_id && sessionData?.subscriberUrl) {
-      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, formUrl);
+      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, sessionData?.form_id);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
     }
