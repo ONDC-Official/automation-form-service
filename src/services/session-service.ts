@@ -87,8 +87,9 @@ export const updateSession = async (
     }
     logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id });
     // Fire callback to subscriber after successful session update
+    const form_id = sessionData?.form_id || "no-form-id";
     if (transaction_id && sessionData?.subscriberUrl) {
-      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, sessionData?.form_id);
+      await sendCallbackToSubscriber(sessionData.subscriberUrl, transaction_id, form_id);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
     }
