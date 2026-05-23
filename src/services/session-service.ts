@@ -72,7 +72,7 @@ export const updateSession = async (
   try {
     const sessionData = await SessionService.getSessionData(session_id);
     console.log(formUrl, 'formurl__________________')
-    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id || "no-form-id" });
+    logger.info("session updated sessiondata", { subscriberUrl: sessionData?.subscriberUrl, form_id: sessionData?.form_id || "no-form-id", sessionData });
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
