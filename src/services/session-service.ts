@@ -71,8 +71,11 @@ export const updateSession = async (
 ): Promise<void> => {
   try {
     const sessionData = await SessionService.getSessionData(session_id);
+    const subscriberUrl = sessionData?.subscriberUrl;
+    const transactionData = await SessionService.getSessionData(transaction_id);
+    const form_id = transactionData?.form_id
     console.log(formUrl, 'formurl__________________')
-    logger.info("session updated sessiondata", { transaction_id:session_id, subscriberUrl: sessionData?.bap_uri, form_id: sessionData?.form_id || "no-form-id", sessionData });
+    logger.info("session updated sessiondata", { transaction_id:session_id, subscriberUrl: subscriberUrl, form_id: form_id || "no-form-id", sessionData, transactionData });
     const form_data = {
       ...sessionData?.form_data,
       [formUrl]: currentFormData,
@@ -85,10 +88,10 @@ export const updateSession = async (
       sessionData.form_data = form_data;
       await SessionService.updateSessionData(session_id, sessionData);
     }
-    logger.info("before calling callback ", { transaction_id: transaction_id, subscriberUrl: sessionData?.bap_uri, form_id: sessionData?.form_id });
+    logger.info("before calling callback ", { transaction_id, subscriberUrl: subscriberUrl, form_id: sessionData?.form_id });
     // Fire callback to subscriber after successful session update
-    if (session_id && sessionData?.bap_uri) {
-      await sendCallbackToSubscriber(sessionData.bap_uri, session_id, sessionData?.form_id);
+    if (transaction_id && subscriberUrl) {
+      await sendCallbackToSubscriber(sessionData.bap_uri, transaction_id, sessionData?.form_id);
     } else {
       logger.error(`[form-service] No subscriberUrl in session — skipping callback`, { transaction_id });
     }
