@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PED Details</title>
+</head>
+
+<body>
+
+  <form id="ped_details_form" method="POST" action="<%= actionUrl %>">
+
+    <h3>PED Questions</h3>
+
+    <label for="question1_1">
+      Health Complaints <span style="color:red">*</span>
+    </label>
+    <select id="question1_1" name="question1_1" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="question1_2">
+      PED <span style="color:red">*</span>
+    </label>
+    <select id="question1_2" name="question1_2" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="question1_3">
+      Met with any accident <span style="color:red">*</span>
+    </label>
+    <select id="question1_3" name="question1_3" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="question1_3a">
+      Whether major accident? Give details / Any head trauma
+    </label>
+    <input
+      type="text"
+      id="question1_3a"
+      name="question1_3a"
+      placeholder="Enter details"
+    />
+
+    <label for="question1_4">
+      Hospitalized for operation/medical treatment in past 4 years
+      <span style="color:red">*</span>
+    </label>
+    <select id="question1_4" name="question1_4" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label for="question1_4a">
+      Diagnosis Details
+    </label>
+    <input
+      type="text"
+      id="question1_4a"
+      name="question1_4a"
+      placeholder="Enter diagnosis details"
+    />
+
+    <label for="question2_1">
+      Are you or any family member taking any treatment or medicine?
+      <span style="color:red">*</span>
+    </label>
+    <select id="question2_1" name="question2_1" required>
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <!-- Continue remaining questions in same format -->
+
+    <input type="hidden" id="formId" name="formId" value="FO5">
+
+    <input type="submit" value="Submit">
+
+  </form>
+
+</body>
+
+</html>

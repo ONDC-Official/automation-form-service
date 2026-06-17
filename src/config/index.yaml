@@ -179,6 +179,13 @@ domains:
         type: "dynamic"
         sessionUpdateFunction: "update-session.ts"
         successRedirect: "https://example.com/success"
+      - name: "ped_details_form"
+        url: "ped_details_form"
+        path: "FIS13/health/ped_details_form"
+        type: "static"
+        sessionUpdateFunction: "update-session.ts"
+        successRedirect: "https://example.com/success"
+
       - name: "vehicle_details_form"
         url: "vehicle_details_form"
         path: "FIS13/motor/vehicle_details_form"
